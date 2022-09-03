@@ -133,11 +133,11 @@ size_t vec::size() const {
     return _size;
 }
 
-bool vec::real(){
-    for (int i=0;i <_size; ++i){
-        if (!arr[i].real()) return false;
+bool vec::real() {
+    for(int i = 0; i < _size; ++i) {
+        if(!arr[i].real()) return false;
     }
-   return true;
+    return true;
 };
 
 void vec::fill(const complex& z) {
@@ -247,6 +247,15 @@ std::istream& operator>>(std::istream& in, vec& v) {
     return in;
 }
 
+double vec::length() {
+    if(!real()) return 0;
+    double res = 0;
+    for(int i = 0; i < _size; ++i) {
+        res += arr[i].re * arr[i].re;
+    }
+    return res;
+}
+
 matrix::matrix(size_t rows, size_t cols) : _size(rows), arr(new vec[cols]) {}
 
 matrix::matrix(const complex& lambda, size_t rows, size_t cols) : _size(rows), arr(new vec[cols]) {
@@ -264,9 +273,9 @@ size_t matrix::cols() const {
     return arr[0].size();
 }
 
-bool matrix::real(){
-    for (size_t i =0; i < _size; ++i){
-        if (!arr[i].real()) return false;
+bool matrix::real() {
+    for(size_t i = 0; i < _size; ++i) {
+        if(!arr[i].real()) return false;
     }
     return true;
 }

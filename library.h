@@ -108,6 +108,8 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const vec& v);
 
     friend std::istream& operator>>(std::istream&, vec& v);
+
+    double length();
 };
 
 
