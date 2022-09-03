@@ -122,6 +122,8 @@ public:
 
     matrix(size_t rows, size_t cols);
 
+    matrix(matrix& other);
+
     matrix(const complex& lambda, size_t rows, size_t cols);
 
     size_t rows() const;

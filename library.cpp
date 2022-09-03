@@ -260,6 +260,12 @@ double vec::length() {
 
 matrix::matrix(size_t rows, size_t cols) : _size(rows), arr(new vec[cols]) {}
 
+matrix::matrix(matrix& other) : _size(other.rows()), arr(new vec[other.cols()]) {
+    for(int i = 0; i < _size; ++i) {
+        arr[i] = other.arr[i];
+    }
+}
+
 matrix::matrix(const complex& lambda, size_t rows, size_t cols) : _size(rows), arr(new vec[cols]) {
     for(size_t j = 0; j < rows; ++j) {
         arr[j].fill(complex(0));
