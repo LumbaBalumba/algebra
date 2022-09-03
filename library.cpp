@@ -99,7 +99,7 @@ bool complex::operator==(const complex& other) const {
 }
 
 bool complex::operator!=(const complex& other) const {
-    return (fabs(re - other.re) >= eps) || (fabs(im - other.im) > eps);
+    return (fabs(re - other.re) >= eps) || (fabs(im - other.im) >= eps);
 }
 
 std::ostream& operator<<(std::ostream& out, const complex& z) {
@@ -255,7 +255,7 @@ double vec::length() {
     for(int i = 0; i < _size; ++i) {
         res += arr[i].re * arr[i].re;
     }
-    return res;
+    return sqrt(res);
 }
 
 matrix::matrix(size_t rows, size_t cols) : _size(rows), arr(new vec[cols]) {}
