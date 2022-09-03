@@ -1,5 +1,5 @@
 # algebra
-A library that includes complex numbers, vectors and matrices
+A C++ library that includes complex numbers, vectors and matrices
 ### *complex*:
  This class contains four constructors (default constructor, copy constructor, double-complex cast and a basic constructor for initialising both real and imagined components), basic arithmetic operations with complex numbers, real-checker function, module and argument functions, and i/o.
  
