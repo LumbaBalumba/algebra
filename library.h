@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "matrix.h"
+#include "polynomial.h"
 
 
 

@@ -24,6 +24,8 @@ public:
 
     size_t cols() const;
 
+    void resize(size_t rows, size_t cols);
+
     bool real();
 
     matrix& operator=(const matrix& other);

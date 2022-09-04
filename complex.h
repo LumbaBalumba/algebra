@@ -65,5 +65,4 @@ complex i();
 
 double pi();
 
-
 #endif //ALGEBRA_COMPLEX_H

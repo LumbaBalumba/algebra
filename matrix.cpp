@@ -27,6 +27,13 @@ size_t matrix::cols() const {
     return arr[0].size();
 }
 
+void matrix::resize(size_t rows, size_t cols) {
+    arr = (vec*) realloc(arr, sizeof(vec) * rows);
+    for(size_t i = 0; i < _size; ++i) {
+        arr[i].resize(cols);
+    }
+}
+
 bool matrix::real() {
     for(size_t i = 0; i < _size; ++i) {
         if(!arr[i].real()) return false;

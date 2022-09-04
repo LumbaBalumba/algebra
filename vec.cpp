@@ -20,6 +20,11 @@ size_t vec::size() const {
     return _size;
 }
 
+void vec::resize(size_t size) {
+    arr = (complex*) realloc(arr, sizeof(complex) * size);
+    _size = size;
+}
+
 bool vec::real() {
     for(size_t i = 0; i < _size; ++i) {
         if(!arr[i].real()) return false;

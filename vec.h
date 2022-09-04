@@ -22,6 +22,8 @@ public:
 
     size_t size() const;
 
+    void resize (size_t size);
+
     bool real();
 
     void fill(const complex& z);
