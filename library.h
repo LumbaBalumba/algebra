@@ -196,7 +196,7 @@ public:
 
     friend std::istream& operator>>(std::istream& in, matrix& m);
 
-    vec operate(vec& v);
+    vec operator()(vec& v);
 };
 
 #endif //ALGEBRA_LIBRARY_H

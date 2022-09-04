@@ -546,7 +546,7 @@ std::istream& operator>>(std::istream& in, matrix& m) {
     return in;
 }
 
-vec matrix::operate(vec& v) {
+vec matrix::operator()(vec& v) {
     if(v.size() != cols()) throw std::out_of_range("Incorrect matrix and vector size");
     vec res(rows());
     for(size_t i = 0; i < rows(); ++i) {
