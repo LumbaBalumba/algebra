@@ -5,10 +5,13 @@
 #ifndef ALGEBRA_POLYNOMIAL_H
 #define ALGEBRA_POLYNOMIAL_H
 
+#include "vec.h"
 
-class polynomial {
-    vec v;
-
+class polynomial : private vec {
+private:
+    size_t size{};
+    complex* arr{};
+public:
     polynomial() = default;
 
     polynomial(size_t size);
@@ -17,33 +20,17 @@ class polynomial {
 
     polynomial(const vec& other);
 
-    polynomial operator=(const polynomial& other);
-
     polynomial operator+(const polynomial& other);
-
-    polynomial operator*(const polynomial& other);
 
     polynomial operator-(const polynomial& other);
 
-    polynomial operator-();
-
-    bool operator==(const polynomial& other);
-
-    bool operator!=(const polynomial& other);
+    polynomial operator*(const polynomial& other);
 
     polynomial operator/(const polynomial& other);
 
     polynomial operator%(const polynomial& other);
 
-    size_t deg();
-
-    polynomial operator*(const complex& other);
-
-    polynomial operator/(const complex& other);
-
-    polynomial operator+=(const polynomial& other);
-
-    polynomial operator-=(const polynomial& other);
+    size_t deg() const;
 
     polynomial operator*=(const polynomial& other);
 
@@ -51,9 +38,9 @@ class polynomial {
 
     polynomial operator%=(const polynomial& other);
 
-    complex* roots();
+    complex* roots() const;
 
-    polynomial derivative();
+    polynomial derivative() const;
 
     friend std::istream& operator>>(std::istream& in, polynomial& p);
 

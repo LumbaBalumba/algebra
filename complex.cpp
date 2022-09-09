@@ -4,8 +4,6 @@
 
 #include "complex.h"
 
-const double eps = 0.00001;
-
 double pi() {
     return acos(-1);
 }

@@ -3,4 +3,4 @@ project(algebra)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(algebra library.cpp complex.cpp vec.cpp matrix.cpp)
+add_library(algebra algebra.cpp complex.cpp vec.cpp matrix.cpp polynomial.cpp)

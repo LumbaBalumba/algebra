@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cmath>
 
+const double eps = 0.00001;
 
 class complex {
 public:
