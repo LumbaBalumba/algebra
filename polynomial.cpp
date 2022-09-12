@@ -54,6 +54,16 @@ polynomial polynomial::operator-(const polynomial& other) {
     }
 }
 
+polynomial polynomial::operator*(const polynomial& other) {
+    polynomial res(deg() + other.deg());
+    for(int i = 0; i <= deg(); ++i) {
+        for(int j = 0; j <= other.deg(); ++j) {
+            res[i + j] = (*this)[i] * other[i];
+        }
+    }
+    return res;
+}
+
 polynomial polynomial::operator*=(const polynomial& other) {
     return *this = *this * other;
 }
