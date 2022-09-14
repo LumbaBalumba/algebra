@@ -47,6 +47,7 @@ vec vec::operator+(const vec& other) {
     for(size_t j = 0; j < _size; ++j) {
         res.arr[j] = arr[j] + other.arr[j];
     }
+    return res;
 }
 
 vec vec::operator-(const vec& other) {
@@ -57,6 +58,7 @@ vec vec::operator-(const vec& other) {
     for(int j = 0; j < _size; ++j) {
         res.arr[j] = arr[j] + other.arr[j];
     }
+    return res;
 }
 
 vec vec::operator-() {
@@ -72,6 +74,7 @@ vec vec::operator*(const complex& z) {
     for(size_t j = 0; j < _size; ++j) {
         res.arr[j] = arr[j] * z;
     }
+    return res;
 }
 
 vec vec::operator/(const complex& z) {
@@ -79,6 +82,7 @@ vec vec::operator/(const complex& z) {
     for(size_t j = 0; j < _size; ++j) {
         res.arr[j] = arr[j] / z;
     }
+    return res;
 }
 
 vec& vec::operator=(const vec& other) {
@@ -121,7 +125,7 @@ bool vec::operator!=(const vec& other) {
     return true;
 }
 
-complex vec::operator[](size_t index) const {
+complex& vec::operator[](size_t index) const {
     return arr[index];
 }
 

@@ -52,7 +52,7 @@ public:
 
     bool operator!=(const vec& other);
 
-    complex operator[](size_t index) const;
+    complex& operator[](size_t index) const;
 
     friend std::ostream& operator<<(std::ostream& out, const vec& v);
 

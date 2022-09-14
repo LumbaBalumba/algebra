@@ -11,12 +11,13 @@ class matrix {
 private:
     size_t _size;
     vec* arr;
+
 public:
     matrix() = default;
 
     matrix(size_t rows, size_t cols);
 
-    matrix(matrix& other);
+    matrix(const matrix& other);
 
     matrix(const complex& lambda, size_t rows, size_t cols);
 
@@ -52,7 +53,7 @@ public:
 
     matrix& operator/=(const complex& z);
 
-    vec operator[](size_t index);
+    vec& operator[](size_t index);
 
     void row_swap(size_t dest, size_t src);
 
@@ -76,9 +77,7 @@ public:
 
     matrix conjugate();
 
-    matrix& upper_triangle();
-
-    matrix& lower_triangle();
+    matrix upper_triangle();
 
     complex det();
 
@@ -93,7 +92,10 @@ public:
     friend std::istream& operator>>(std::istream& in, matrix& m);
 
     vec operator()(vec& v);
+
+    size_t rank();
+
+    size_t def();
 };
 
-
-#endif //ALGEBRA_MATRIX_H
+#endif // ALGEBRA_MATRIX_H

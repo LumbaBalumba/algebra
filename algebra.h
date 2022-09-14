@@ -4,11 +4,8 @@
 #include <iostream>
 
 #include "complex.h"
-#include "vec.h"
 #include "matrix.h"
 #include "polynomial.h"
+#include "vec.h"
 
-
-
-
-#endif //ALGEBRA_ALGEBRA_H
+#endif // ALGEBRA_ALGEBRA_H

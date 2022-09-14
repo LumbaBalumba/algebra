@@ -7,10 +7,7 @@
 
 #include "vec.h"
 
-class polynomial : private vec {
-private:
-    size_t size{};
-    complex* arr{};
+class polynomial : public vec {
 public:
     polynomial() = default;
 
