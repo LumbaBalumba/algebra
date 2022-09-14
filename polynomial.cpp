@@ -136,3 +136,6 @@ std::ostream& operator<<(std::ostream& out, polynomial& p) {
     out << p[0];
     return out;
 }
+
+complex* polynomial::roots() const {
+}

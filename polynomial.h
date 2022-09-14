@@ -33,6 +33,7 @@ public:
 
     polynomial operator/=(const polynomial& other);
 
+
     polynomial operator%=(const polynomial& other);
 
     complex* roots() const;
