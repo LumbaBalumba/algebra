@@ -36,9 +36,13 @@ public:
 
     complex operator-() const;
 
+    complex operator*(double x) const;
+
+    complex operator/(double x) const;
+
     complex operator*(const complex& other) const;
 
-    complex operator/(const complex& other);
+    complex operator/(const complex& other) const;
 
     complex& operator+=(const complex& other);
 

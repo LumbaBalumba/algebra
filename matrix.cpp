@@ -5,7 +5,10 @@
 #include "matrix.h"
 
 matrix::matrix(size_t rows, size_t cols)
-        : _size(rows), arr(new vec[cols]) {
+        : _size(rows), arr(new vec[rows]) {
+    for(size_t i = 0; i < rows; ++i) {
+        arr[i] = vec(cols);
+    }
 }
 
 matrix::matrix(const matrix& other)
@@ -221,19 +224,19 @@ matrix matrix::conjugate() {
 matrix matrix::upper_triangle() {
     matrix res(*this);
     for(size_t i = 0; i < rows() - 1; ++i) {
-        if(res[i][i] == complex(0)) {
+        if(res[i][i].abs() < eps) {
             bool flag = false;
             for(size_t j = i + 1; j < rows() && !flag; ++j) {
-                if(res[i][j] != complex(0)) {
+                if(res[j][i].abs() > eps) {
                     res.row_swap(i, j);
                     flag = true;
                 }
             }
             if(!flag)
-                throw std::exception();
+                throw std::overflow_error("Zero determinant matrix");
         }
         for(size_t j = i + 1; j < rows(); ++j) {
-            res.row_add(j, i, complex(-1) / res[i][i] * res[i][j]);
+            res.row_add(j, i, -res[j][i] / res[i][i]);
         }
     }
     return res;
@@ -289,7 +292,8 @@ matrix matrix::inverted() {
 
 std::ostream& operator<<(std::ostream& out, const matrix& m) {
     for(size_t i = 0; i < m.rows(); ++i) {
-        out << m.arr[i] << std::endl;
+        out << m.arr[i];
+        if(i != m.rows() - 1) out << std::endl;
     }
     return out;
 }

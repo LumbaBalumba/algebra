@@ -69,16 +69,23 @@ complex complex::operator-() const {
     return {-re, -im};
 }
 
+complex complex::operator*(double x) const {
+    return {re * x, im * x};
+}
+
+complex complex::operator/(double x) const {
+    return {re / x, im / x};
+}
+
 complex complex::operator*(const complex& other) const {
     return {re * other.re - im * other.im, im * other.re + re * other.im};
 }
 
-complex complex::operator/(const complex& other) {
-    if(other.abs() < eps)
-        throw std::overflow_error("Zero division error");
+complex complex::operator/(const complex& other) const {
+    if(other.abs() < eps) throw std::overflow_error("Zero division error");
     complex res = (*this) * other.conjugate();
-    res.re /= other.abs();
-    res.im /= other.abs();
+    res.re /= other.abs() * other.abs();
+    res.im /= other.abs() * other.abs();
     return res;
 }
 
@@ -119,13 +126,12 @@ bool complex::operator!=(const complex& other) const {
 }
 
 std::ostream& operator<<(std::ostream& out, const complex& z) {
-    if(fabs(z.re) < eps) {
+    if(fabs(z.im) < eps) {
+        out << z.re;
+    } else if(fabs(z.re) < eps) {
         if(fabs(z.im - 1) < eps) out << "i";
         else out << z.im << "i";
-    } else if(fabs(z.im) < eps) {
-        out << z.re;
     } else {
-
         out << z.re << " + " << z.im << "i";
     }
     return out;
