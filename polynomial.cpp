@@ -88,7 +88,7 @@ polynomial polynomial::operator/(const polynomial& other) {
         res[i] = t[i + other.deg()] / other[other.deg()];
         for(size_t j = i + other.deg() - 1; j >= i; --j)
             t[j] -= t[j - i] * res[i];
-        if (i == 0) break;
+        if(i == 0) break;
     }
     return res;
 }

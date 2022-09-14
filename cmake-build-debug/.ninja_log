@@ -1,0 +1,7 @@
+# ninja log v5
+1	594	1663187480531551932	CMakeFiles/algebra.dir/algebra.cpp.o	186955b4b308a422
+1	605	1663187480541551931	CMakeFiles/algebra.dir/complex.cpp.o	8f18259e7ca62105
+1	608	1663187480544885265	CMakeFiles/algebra.dir/vec.cpp.o	c49d1ab582c5e1e8
+605	1166	1663187481101551899	CMakeFiles/algebra.dir/polynomial.cpp.o	a96ee5a657b50ae8
+595	1200	1663187481134885231	CMakeFiles/algebra.dir/matrix.cpp.o	fff4b5b2ca31fd4e
+1201	1327	1663187481258218557	libalgebra.a	7274684e5f1885de
