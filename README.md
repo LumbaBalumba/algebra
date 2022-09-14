@@ -22,7 +22,7 @@ transposed matrix function, upper-triangle and lower-triangle forms, conjugate m
 complement to a matrix element, adjusted matrix and inverted matrix. Also, can be used as a linear operator with given
 vector.
 
-### *polynomial*
+### *polynomial:*
 
 This class provides complex algebraic polynomials and basic arithmetic operations. Later a root function will be added
 that returns an array of complex root of the polynomials given.
