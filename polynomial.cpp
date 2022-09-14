@@ -28,7 +28,7 @@ size_t polynomial::deg() const {
 polynomial polynomial::operator+(const polynomial& other) {
     if(deg() >= other.deg()) {
         polynomial res(deg());
-        for(size_t i = 0; i < deg(); ++i) {
+        for(size_t i = 0; i <= deg(); ++i) {
             if(i <= other.deg())
                 res[i] = (*this)[i] + other[i];
             else
@@ -37,7 +37,7 @@ polynomial polynomial::operator+(const polynomial& other) {
         return res;
     } else {
         polynomial res(other.deg());
-        for(size_t i = 0; i < other.deg(); ++i) {
+        for(size_t i = 0; i <= other.deg(); ++i) {
             if(i <= deg())
                 res[i] = (*this)[i] + other[i];
             else
@@ -135,7 +135,4 @@ std::ostream& operator<<(std::ostream& out, polynomial& p) {
     }
     out << p[0];
     return out;
-}
-
-complex* polynomial::roots() const {
 }
