@@ -5,7 +5,7 @@
 
 #include "complex.h"
 #include "matrix.h"
-#include "polynomial.h"
 #include "vec.h"
+#include "polynomial.h"
 
 #endif // ALGEBRA_ALGEBRA_H

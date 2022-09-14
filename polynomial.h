@@ -42,7 +42,7 @@ public:
 
     friend std::istream& operator>>(std::istream& in, polynomial& p);
 
-    friend std::ostream& operator<<(std::ostream& out, polynomial& p);
+    friend std::ostream& operator<<(std::ostream& out, const polynomial& p);
 };
 
 

@@ -129,7 +129,7 @@ std::istream& operator>>(std::istream& in, polynomial& p) {
     return in;
 }
 
-std::ostream& operator<<(std::ostream& out, polynomial& p) {
+std::ostream& operator<<(std::ostream& out, const polynomial& p) {
     for(size_t i = p.deg(); i > 0; --i) {
         out << "(" << p[i] << ")x^" << i << " + ";
     }
