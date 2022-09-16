@@ -156,3 +156,4 @@ complex polynomial::operator()(const complex& z) const {
     }
     return res;
 }
+

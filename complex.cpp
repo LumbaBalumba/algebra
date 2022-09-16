@@ -150,3 +150,9 @@ complex complex::pow(size_t n) const {
     }
     return res;
 }
+
+complex complex::pow(ssize_t n) const {
+    complex res(1);
+    if(n >= 0) return pow((size_t) n);
+    else return complex(1) / pow((size_t) -n);
+}

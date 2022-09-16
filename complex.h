@@ -65,6 +65,8 @@ public:
     friend std::istream& operator>>(std::istream& in, complex& z);
 
     complex pow(size_t p) const;
+
+    complex pow(ssize_t p) const;
 };
 
 
