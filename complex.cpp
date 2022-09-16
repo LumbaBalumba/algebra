@@ -153,12 +153,11 @@ complex complex::pow(size_t n) const {
 }
 
 complex complex::pow(ssize_t n) const {
-    complex res(1);
     if(n >= 0) return pow((size_t) n);
     else return complex(1) / pow((size_t) -n);
 }
 
-complex complex::smart_pow(double x) const {
+complex complex::pow(double x) const {
     double phi = arg() * x, r = std::pow(abs(), x);
     return {r * std::cos(phi), r * std::sin(phi)};
 }

@@ -68,7 +68,7 @@ public:
 
     complex pow(ssize_t p) const;
 
-    complex smart_pow(double x) const;
+    complex pow(double x) const;
 };
 
 
