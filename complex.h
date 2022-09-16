@@ -64,10 +64,6 @@ public:
 
     friend std::istream& operator>>(std::istream& in, complex& z);
 
-    complex pow(size_t p) const;
-
-    complex pow(ssize_t p) const;
-
     complex pow(double x) const;
 };
 
@@ -75,5 +71,11 @@ public:
 complex i();
 
 double pi();
+
+complex sin(const complex& z);
+
+complex cos(const complex& z);
+
+complex exp(const complex& z);
 
 #endif //ALGEBRA_COMPLEX_H

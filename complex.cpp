@@ -144,20 +144,43 @@ std::istream& operator>>(std::istream& in, complex& z) {
     return in;
 }
 
-complex complex::pow(size_t n) const {
-    complex res(1);
-    for(size_t i = 0; i < n; ++i) {
-        res *= *this;
+complex complex::pow(double x) const {
+    double phi = arg() * x, r = std::pow(abs(), x);
+    return {r * std::cos(phi), r * std::sin(phi)};
+}
+
+complex sin(const complex& z) {
+    complex res(0);
+    int sgn = -1;
+    complex tmp = z;
+    unsigned fact = 1;
+    for(int i = 1; i <= 10; ++i) {
+        if((i & 1) == 1) {
+            sgn *= -1;
+            res += tmp * sgn / fact;
+            tmp *= z.pow(2);
+            fact *= (i + 1) * (i + 2);
+        }
     }
     return res;
 }
 
-complex complex::pow(ssize_t n) const {
-    if(n >= 0) return pow((size_t) n);
-    else return complex(1) / pow((size_t) -n);
+complex cos(const complex& z) {
+    complex res(1);
+    int sgn = 1;
+    complex tmp = z;
+    unsigned fact = 1;
+    for(int i = 2; i <= 10; ++i) {
+        if((i & 1) == 0) {
+            sgn *= -1;
+            res += tmp * sgn / fact;
+            tmp *= z.pow(2);
+            fact *= (i + 1) * (i + 2);
+        }
+    }
+    return res;
 }
 
-complex complex::pow(double x) const {
-    double phi = arg() * x, r = std::pow(abs(), x);
-    return {r * std::cos(phi), r * std::sin(phi)};
+complex exp(const complex& z) {
+    return complex(std::exp(z.re)) * (complex(cos(z.im)) + i() * sin(z.im));
 }
