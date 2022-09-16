@@ -142,3 +142,11 @@ std::istream& operator>>(std::istream& in, complex& z) {
     in >> z.im;
     return in;
 }
+
+complex complex::pow(size_t n) const {
+    complex res(1);
+    for(size_t i = 0; i < n; ++i) {
+        res *= *this;
+    }
+    return res;
+}

@@ -9,6 +9,9 @@
 
 class polynomial : public vec {
 public:
+    using vec::operator/;
+    using vec::operator*;
+
     polynomial() = default;
 
     polynomial(size_t size);
@@ -36,13 +39,15 @@ public:
 
     polynomial operator%=(const polynomial& other);
 
-    complex* roots() const;
+    complex* roots();
 
     polynomial derivative() const;
 
     friend std::istream& operator>>(std::istream& in, polynomial& p);
 
     friend std::ostream& operator<<(std::ostream& out, const polynomial& p);
+
+    complex operator()(const complex& z) const;
 };
 
 

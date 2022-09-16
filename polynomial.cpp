@@ -6,6 +6,7 @@
 
 polynomial::polynomial(size_t size)
         : vec(size + 1) {
+    fill(complex(0));
 }
 
 polynomial::polynomial(const polynomial& other)
@@ -71,26 +72,32 @@ polynomial polynomial::operator-(const polynomial& other) {
 
 polynomial polynomial::operator*(const polynomial& other) {
     polynomial res(deg() + other.deg());
-    for(int i = 0; i <= deg(); ++i) {
-        for(int j = 0; j <= other.deg(); ++j) {
-            res[i + j] = (*this)[i] * other[i];
+    res.fill(complex(0));
+    for(size_t i = 0; i <= deg(); ++i) {
+        for(size_t j = 0; j <= other.deg(); ++j) {
+            res[i + j] += (*this)[i] * other[j];
         }
     }
     return res;
 }
 
 polynomial polynomial::operator/(const polynomial& other) {
-    if(deg() < other.deg())
-        throw std::overflow_error("Incorrect degree");
-    polynomial res(deg() - other.deg());
-    polynomial t = *this;
-    for(size_t i = (deg() - other.deg());; --i) {
-        res[i] = t[i + other.deg()] / other[other.deg()];
-        for(size_t j = i + other.deg() - 1; j >= i; --j)
-            t[j] -= t[j - i] * res[i];
-        if(i == 0) break;
+    if(deg() < other.deg()) {
+        polynomial res(0);
+        res[0] = 0;
+        return res;
+    } else {
+        polynomial res(deg() - other.deg()), r = *this;
+        res.fill(complex(0));
+        size_t n = deg(), m = other.deg();
+        for(size_t i = n; i >= m; --i) {
+            res[i - m] = r[i] / other[m];
+            for(size_t j = m + 1; j > 0; --j) {
+                r[i - m + j - 1] -= other[j - 1] * res[i - m];
+            }
+        }
+        return res;
     }
-    return res;
 }
 
 polynomial polynomial::operator%(const polynomial& other) {
@@ -130,9 +137,22 @@ std::istream& operator>>(std::istream& in, polynomial& p) {
 }
 
 std::ostream& operator<<(std::ostream& out, const polynomial& p) {
-    for(size_t i = p.deg(); i > 0; --i) {
-        out << "(" << p[i] << ")x^" << i << " + ";
-    }
     out << p[0];
+    for(size_t i = 1; i <= p.deg(); ++i) {
+        if(p[i].abs() > eps) {
+            if(p[i] != complex(1))
+                out << " + (" << p[i] << ")x";
+            else out << " + x";
+        }
+        if(i != 1) out << "^" << i;
+    }
     return out;
+}
+
+complex polynomial::operator()(const complex& z) const {
+    complex res(0);
+    for(size_t i = 0; i <= deg(); ++i) {
+        res += z.pow(i) * (*this)[i];
+    }
+    return res;
 }

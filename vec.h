@@ -22,7 +22,7 @@ public:
 
     size_t size() const;
 
-    void resize (size_t size);
+    void resize(size_t size);
 
     bool real();
 
