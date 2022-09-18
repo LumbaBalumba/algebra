@@ -1,6 +1,6 @@
 # algebra
 
-A C++ library that includes complex numbers, vectors and matrices
+A C++ library that includes complex numbers, vectors, matrices and polynomials.
 
 ### *complex*:
 
