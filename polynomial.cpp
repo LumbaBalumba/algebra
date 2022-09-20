@@ -164,3 +164,9 @@ complex polynomial::operator()(const complex& z) const {
     return res;
 }
 
+complex* polynomial::roots() const{
+    auto* res = new complex[deg()];
+
+    return res;
+}
+

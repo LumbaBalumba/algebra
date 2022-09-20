@@ -36,10 +36,9 @@ public:
 
     polynomial operator/=(const polynomial& other);
 
-
     polynomial operator%=(const polynomial& other);
 
-    complex* roots();
+    complex* roots() const;
 
     polynomial derivative() const;
 
