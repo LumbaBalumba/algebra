@@ -164,9 +164,24 @@ complex polynomial::operator()(const complex& z) const {
     return res;
 }
 
-complex* polynomial::roots() const{
+complex* polynomial::roots() const {
     auto* res = new complex[deg()];
-
+    size_t cur = 0;
+    if(this->operator()(complex(0)) == complex(0)) {
+        res[cur++] = complex(0);
+    }
+    if(this->operator()(complex(1)) == complex(0)) {
+        res[cur++] = complex(1);
+    }
+    if(this->operator()(complex(0, 1)) == complex(0)) {
+        res[cur++] = complex(0, 1);
+    }
+    if(this->operator()(complex(2)) == complex(0)) {
+        res[cur++] = complex(2);
+    }
+    if(this->operator()(complex(0, 2)) == complex(0)) {
+        res[cur++] = complex(0, 2);
+    }
     return res;
 }
 
