@@ -152,7 +152,14 @@ std::ostream& operator<<(std::ostream& out, const polynomial& p) {
 complex polynomial::operator()(const complex& z) const {
     complex res(0);
     for(size_t i = 0; i <= deg(); ++i) {
-        res += z.pow(i) * (*this)[i];
+        if((*this)[i] != complex(0)) {
+            complex tmp(1);
+            for(size_t j = 0; j < i; ++j) {
+                tmp *= z;
+            }
+            tmp *= (*this)[i];
+            res += tmp;
+        }
     }
     return res;
 }

@@ -228,12 +228,13 @@ matrix matrix::upper_triangle() {
             bool flag = false;
             for(size_t j = i + 1; j < rows() && !flag; ++j) {
                 if(res[j][i].abs() > eps) {
+                    res[j] *= complex(-1);
                     res.row_swap(i, j);
                     flag = true;
                 }
             }
             if(!flag)
-                throw std::overflow_error("Zero determinant matrix");
+                continue;
         }
         for(size_t j = i + 1; j < rows(); ++j) {
             res.row_add(j, i, -res[j][i] / res[i][i]);
@@ -256,7 +257,9 @@ complex matrix::det() {
 complex matrix::alg_complement(size_t row, size_t col) {
     if(rows() != cols())
         throw std::out_of_range("Incorrect matrix size");
-    matrix res(*this);
+    if(rows() == 1)
+        return complex(1);
+    matrix res(rows() - 1, cols() - 1);
     for(size_t i = 0; i < rows(); ++i) {
         for(size_t j = 0; j < cols(); ++j) {
             if(i < row && j < col)
@@ -269,7 +272,7 @@ complex matrix::alg_complement(size_t row, size_t col) {
                 res[i - 1][j - 1] = (*this)[i][j];
         }
     }
-    return (row + col) % 2 == 0 ? res.det() : -res.det();
+    return ((row + col) % 2 == 0) ? res.det() : -res.det();
 }
 
 matrix matrix::adjusted() {
@@ -286,7 +289,7 @@ matrix matrix::adjusted() {
 
 matrix matrix::inverted() {
     if(rows() != cols())
-        throw std::exception();
+        throw std::out_of_range("Incorrect matrix size");
     return adjusted() / det();
 }
 
