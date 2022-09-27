@@ -7,16 +7,17 @@
 
 #include "complex.h"
 
-class vec {
+class vec
+{
 private:
     size_t _size;
-    complex* arr;
+    complex *arr;
 public:
     vec() = default;
 
     explicit vec(size_t _size);
 
-    vec(const vec& other);
+    vec(const vec &other);
 
     ~vec();
 
@@ -26,37 +27,37 @@ public:
 
     bool real();
 
-    void fill(const complex& z);
+    void fill(const complex &z);
 
-    vec operator+(const vec& other);
+    vec operator+(const vec &other);
 
-    vec operator-(const vec& other);
+    vec operator-(const vec &other);
 
     vec operator-();
 
-    vec operator*(const complex& z);
+    vec operator*(const complex &z);
 
-    vec operator/(const complex& z);
+    vec operator/(const complex &z);
 
-    vec& operator+=(const vec& other);
+    vec &operator+=(const vec &other);
 
-    vec& operator-=(const vec& other);
+    vec &operator-=(const vec &other);
 
-    vec& operator*=(const complex& other);
+    vec &operator*=(const complex &other);
 
-    vec& operator/=(const complex& other);
+    vec &operator/=(const complex &other);
 
-    vec& operator=(const vec& other);
+    vec &operator=(const vec &other);
 
-    bool operator==(const vec& other);
+    bool operator==(const vec &other);
 
-    bool operator!=(const vec& other);
+    bool operator!=(const vec &other);
 
-    complex& operator[](size_t index) const;
+    complex &operator[](size_t index) const;
 
-    friend std::ostream& operator<<(std::ostream& out, const vec& v);
+    friend std::ostream &operator<<(std::ostream &out, const vec &v);
 
-    friend std::istream& operator>>(std::istream&, vec& v);
+    friend std::istream &operator>>(std::istream &, vec &v);
 
     double length();
 };

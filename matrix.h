@@ -6,20 +6,22 @@
 #define ALGEBRA_MATRIX_H
 
 #include "vec.h"
+#include "polynomial.h"
 
-class matrix {
+class matrix
+{
 private:
     size_t _size;
-    vec* arr;
+    vec *arr;
 
 public:
     matrix() = default;
 
     matrix(size_t rows, size_t cols);
 
-    matrix(const matrix& other);
+    matrix(const matrix &other);
 
-    matrix(const complex& lambda, size_t rows, size_t cols);
+    matrix(const complex &lambda, size_t rows, size_t cols);
 
     size_t rows() const;
 
@@ -29,47 +31,47 @@ public:
 
     bool real();
 
-    matrix& operator=(const matrix& other);
+    matrix &operator=(const matrix &other);
 
-    matrix operator+(const matrix& other);
+    matrix operator+(const matrix &other);
 
-    matrix operator-(const matrix& other);
+    matrix operator-(const matrix &other);
 
     matrix operator-();
 
-    matrix operator*(const matrix& other);
+    matrix operator*(const matrix &other);
 
-    matrix operator*(const complex& z);
+    matrix operator*(const complex &z);
 
-    matrix operator/(const complex& z);
+    matrix operator/(const complex &z);
 
-    matrix& operator+=(const matrix& other);
+    matrix &operator+=(const matrix &other);
 
-    matrix& operator-=(const matrix& other);
+    matrix &operator-=(const matrix &other);
 
-    matrix& operator*=(const matrix& other);
+    matrix &operator*=(const matrix &other);
 
-    matrix& operator*=(const complex& z);
+    matrix &operator*=(const complex &z);
 
-    matrix& operator/=(const complex& z);
+    matrix &operator/=(const complex &z);
 
-    vec& operator[](size_t index);
+    vec &operator[](size_t index);
 
     void row_swap(size_t dest, size_t src);
 
-    void row_add(size_t dest, size_t src, const complex& k);
+    void row_add(size_t dest, size_t src, const complex &k);
 
     void row_add(size_t dest, size_t src);
 
-    void row_mul(size_t dest, const complex& z);
+    void row_mul(size_t dest, const complex &z);
 
     void col_swap(size_t dest, size_t src);
 
-    void col_add(size_t dest, size_t src, const complex& z);
+    void col_add(size_t dest, size_t src, const complex &z);
 
     void col_add(size_t dest, size_t src);
 
-    void col_mul(size_t dest, const complex& z);
+    void col_mul(size_t dest, const complex &z);
 
     complex tr();
 
@@ -87,15 +89,17 @@ public:
 
     matrix inverted();
 
-    friend std::ostream& operator<<(std::ostream& out, const matrix& m);
+    friend std::ostream &operator<<(std::ostream &out, const matrix &m);
 
-    friend std::istream& operator>>(std::istream& in, matrix& m);
+    friend std::istream &operator>>(std::istream &in, matrix &m);
 
-    vec operator()(vec& v);
+    vec operator()(vec &v);
 
     size_t rank();
 
     size_t def();
+
+    polynomial char_pol() const;
 };
 
 #endif // ALGEBRA_MATRIX_H

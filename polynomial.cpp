@@ -9,28 +9,28 @@ polynomial::polynomial(size_t size)
     fill(complex(0));
 }
 
-polynomial::polynomial(const polynomial& other)
+polynomial::polynomial(const polynomial &other)
         : vec(other) {
 }
 
-polynomial::polynomial(const vec& other)
+polynomial::polynomial(const vec &other)
         : vec(other) {
 }
 
 size_t polynomial::deg() const {
     size_t res = 0;
-    for(int i = 0; i < size(); ++i) {
-        if((*this)[i].abs() >= eps)
+    for (int i = 0; i < size(); ++i) {
+        if ((*this)[i].abs() >= eps)
             res = i;
     }
     return res;
 }
 
-polynomial polynomial::operator+(const polynomial& other) {
-    if(deg() >= other.deg()) {
+polynomial polynomial::operator+(const polynomial &other) {
+    if (deg() >= other.deg()) {
         polynomial res(deg());
-        for(size_t i = 0; i <= deg(); ++i) {
-            if(i <= other.deg())
+        for (size_t i = 0; i <= deg(); ++i) {
+            if (i <= other.deg())
                 res[i] = (*this)[i] + other[i];
             else
                 res[i] = (*this)[i];
@@ -38,8 +38,8 @@ polynomial polynomial::operator+(const polynomial& other) {
         return res;
     } else {
         polynomial res(other.deg());
-        for(size_t i = 0; i <= other.deg(); ++i) {
-            if(i <= deg())
+        for (size_t i = 0; i <= other.deg(); ++i) {
+            if (i <= deg())
                 res[i] = (*this)[i] + other[i];
             else
                 res[i] = other[i];
@@ -48,11 +48,11 @@ polynomial polynomial::operator+(const polynomial& other) {
     }
 }
 
-polynomial polynomial::operator-(const polynomial& other) {
-    if(deg() >= other.deg()) {
+polynomial polynomial::operator-(const polynomial &other) {
+    if (deg() >= other.deg()) {
         polynomial res(deg());
-        for(size_t i = 0; i < deg(); ++i) {
-            if(i <= other.deg())
+        for (size_t i = 0; i < deg(); ++i) {
+            if (i <= other.deg())
                 res[i] = (*this)[i] - other[i];
             else
                 res[i] = (*this)[i];
@@ -60,8 +60,8 @@ polynomial polynomial::operator-(const polynomial& other) {
         return res;
     } else {
         polynomial res(other.deg());
-        for(size_t i = 0; i < other.deg(); ++i) {
-            if(i <= deg())
+        for (size_t i = 0; i < other.deg(); ++i) {
+            if (i <= deg())
                 res[i] = (*this)[i] - other[i];
             else
                 res[i] = other[i];
@@ -70,19 +70,19 @@ polynomial polynomial::operator-(const polynomial& other) {
     }
 }
 
-polynomial polynomial::operator*(const polynomial& other) {
+polynomial polynomial::operator*(const polynomial &other) {
     polynomial res(deg() + other.deg());
     res.fill(complex(0));
-    for(size_t i = 0; i <= deg(); ++i) {
-        for(size_t j = 0; j <= other.deg(); ++j) {
+    for (size_t i = 0; i <= deg(); ++i) {
+        for (size_t j = 0; j <= other.deg(); ++j) {
             res[i + j] += (*this)[i] * other[j];
         }
     }
     return res;
 }
 
-polynomial polynomial::operator/(const polynomial& other) {
-    if(deg() < other.deg()) {
+polynomial polynomial::operator/(const polynomial &other) {
+    if (deg() < other.deg()) {
         polynomial res(0);
         res[0] = 0;
         return res;
@@ -90,9 +90,9 @@ polynomial polynomial::operator/(const polynomial& other) {
         polynomial res(deg() - other.deg()), r = *this;
         res.fill(complex(0));
         size_t n = deg(), m = other.deg();
-        for(size_t i = n; i >= m; --i) {
+        for (size_t i = n; i >= m; --i) {
             res[i - m] = r[i] / other[m];
-            for(size_t j = m + 1; j > 0; --j) {
+            for (size_t j = m + 1; j > 0; --j) {
                 r[i - m + j - 1] -= other[j - 1] * res[i - m];
             }
         }
@@ -100,61 +100,61 @@ polynomial polynomial::operator/(const polynomial& other) {
     }
 }
 
-polynomial polynomial::operator%(const polynomial& other) {
+polynomial polynomial::operator%(const polynomial &other) {
     return (*this) - (*this) / other * other;
 }
 
-polynomial polynomial::operator*=(const polynomial& other) {
+polynomial polynomial::operator*=(const polynomial &other) {
     return *this = *this * other;
 }
 
-polynomial polynomial::operator/=(const polynomial& other) {
+polynomial polynomial::operator/=(const polynomial &other) {
     return *this = *this / other;
 }
 
-polynomial polynomial::operator%=(const polynomial& other) {
+polynomial polynomial::operator%=(const polynomial &other) {
     return *this = *this % other;
 }
 
 polynomial polynomial::derivative() const {
-    if(deg() == 0) {
+    if (deg() == 0) {
         polynomial res(1);
         res[0] = 0;
         return res;
     }
     polynomial res((vec(deg() - 1)));
-    for(size_t i = 0; i < deg() - 1; ++i) {
+    for (size_t i = 0; i < deg() - 1; ++i) {
         res[i] = (*this)[i + 1] * complex(i + 1);
     }
     return res;
 }
 
-std::istream& operator>>(std::istream& in, polynomial& p) {
-    for(size_t i = 0; i < p.size(); ++i) {
+std::istream &operator>>(std::istream &in, polynomial &p) {
+    for (size_t i = 0; i < p.size(); ++i) {
         in >> p[i];
     }
     return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const polynomial& p) {
+std::ostream &operator<<(std::ostream &out, const polynomial &p) {
     out << p[0];
-    for(size_t i = 1; i <= p.deg(); ++i) {
-        if(p[i].abs() > eps) {
-            if(p[i] != complex(1))
+    for (size_t i = 1; i <= p.deg(); ++i) {
+        if (p[i].abs() > eps) {
+            if (p[i] != complex(1))
                 out << " + (" << p[i] << ")x";
             else out << " + x";
         }
-        if(i != 1) out << "^" << i;
+        if (i != 1) out << "^" << i;
     }
     return out;
 }
 
-complex polynomial::operator()(const complex& z) const {
+complex polynomial::operator()(const complex &z) const {
     complex res(0);
-    for(size_t i = 0; i <= deg(); ++i) {
-        if((*this)[i] != complex(0)) {
+    for (size_t i = 0; i <= deg(); ++i) {
+        if ((*this)[i] != complex(0)) {
             complex tmp(1);
-            for(size_t j = 0; j < i; ++j) {
+            for (size_t j = 0; j < i; ++j) {
                 tmp *= z;
             }
             tmp *= (*this)[i];
@@ -164,23 +164,10 @@ complex polynomial::operator()(const complex& z) const {
     return res;
 }
 
-complex* polynomial::roots() const {
-    auto* res = new complex[deg()];
-    size_t cur = 0;
-    if(this->operator()(complex(0)) == complex(0)) {
-        res[cur++] = complex(0);
-    }
-    if(this->operator()(complex(1)) == complex(0)) {
-        res[cur++] = complex(1);
-    }
-    if(this->operator()(complex(0, 1)) == complex(0)) {
-        res[cur++] = complex(0, 1);
-    }
-    if(this->operator()(complex(2)) == complex(0)) {
-        res[cur++] = complex(2);
-    }
-    if(this->operator()(complex(0, 2)) == complex(0)) {
-        res[cur++] = complex(0, 2);
+std::vector<complex> polynomial::roots() const {
+    std::vector<complex> res(deg());
+    for (size_t i = 0; i <= deg(); ++i) {
+
     }
     return res;
 }

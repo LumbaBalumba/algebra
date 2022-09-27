@@ -10,7 +10,8 @@
 
 const double eps = 0.00001;
 
-class complex {
+class complex
+{
 public:
     double re, im;
 
@@ -20,7 +21,7 @@ public:
 
     complex(double re, double im);
 
-    complex(const complex& other);
+    complex(const complex &other);
 
     bool real() const;
 
@@ -30,9 +31,9 @@ public:
 
     double arg() const;
 
-    complex operator+(const complex& other) const;
+    complex operator+(const complex &other) const;
 
-    complex operator-(const complex& other) const;
+    complex operator-(const complex &other) const;
 
     complex operator-() const;
 
@@ -40,29 +41,29 @@ public:
 
     complex operator/(double x) const;
 
-    complex operator*(const complex& other) const;
+    complex operator*(const complex &other) const;
 
-    complex operator/(const complex& other) const;
+    complex operator/(const complex &other) const;
 
-    complex& operator+=(const complex& other);
+    complex &operator+=(const complex &other);
 
-    complex& operator-=(const complex& other);
+    complex &operator-=(const complex &other);
 
-    complex& operator*=(const complex& other);
+    complex &operator*=(const complex &other);
 
-    complex& operator/=(const complex& other);
+    complex &operator/=(const complex &other);
 
-    bool operator==(const complex& other) const;
+    bool operator==(const complex &other) const;
 
-    bool operator!=(const complex& other) const;
+    bool operator!=(const complex &other) const;
 
-    complex& operator=(complex other);
+    complex &operator=(complex other);
 
-    complex& operator=(double other);
+    complex &operator=(double other);
 
-    friend std::ostream& operator<<(std::ostream& out, const complex& z);
+    friend std::ostream &operator<<(std::ostream &out, const complex &z);
 
-    friend std::istream& operator>>(std::istream& in, complex& z);
+    friend std::istream &operator>>(std::istream &in, complex &z);
 
     complex pow(double x) const;
 };
@@ -72,10 +73,10 @@ complex i();
 
 double pi();
 
-complex sin(const complex& z);
+complex sin(const complex &z);
 
-complex cos(const complex& z);
+complex cos(const complex &z);
 
-complex exp(const complex& z);
+complex exp(const complex &z);
 
 #endif //ALGEBRA_COMPLEX_H
