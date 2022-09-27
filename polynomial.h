@@ -13,6 +13,7 @@ class polynomial : public vec
 public:
     using vec::operator/;
     using vec::operator*;
+    using vec::real;
 
     polynomial() = default;
 

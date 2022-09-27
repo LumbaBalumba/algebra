@@ -166,8 +166,67 @@ complex polynomial::operator()(const complex &z) const {
 
 std::vector<complex> polynomial::roots() const {
     std::vector<complex> res(deg());
-    for (size_t i = 0; i <= deg(); ++i) {
+    switch (deg()) {
+        case 1: {
+            res[0] = -(*this)[0] / (*this)[1];
+            break;
+        }
+        case 2: {
+            complex D = ((*this)[1].pow(2) - complex(4) * (*this)[0] * (*this)[2]).pow(0.5);
+            res[0] = (-(*this)[1] + D) / 2 / (*this)[0];
+            res[1] = (-(*this)[1] - D) / 2 / (*this)[0];
+            break;
+        }
+        case 3: {
+            complex p = (complex(3) * (*this)[3] * (*this)[1] - (*this)[2].pow(2)) / (complex(3) * (*this)[3].pow(2));
+            complex q = (complex(2) * (*this)[2].pow(3) - complex(9) * (*this)[3] * (*this)[2] * (*this)[1] +
+                         complex(27) * (*this)[3].pow(2) * (*this)[0]) / (complex(27) * (*this)[3].pow(3));
+            complex Q = (p / 3).pow(3) + (q / 2).pow(2);
+            complex alpha = (-q / 2 + Q.pow(0.5)).pow(1.0 / 3.0);
+            complex beta = (-q / 2 - Q.pow(0.5)).pow(1.0 / 3.0);
+            res[0] = alpha + beta;
+            res[1] = -(alpha + beta) / 2 + i() * (alpha - beta) / 2 * complex(3).pow(0.5);
+            res[2] = -(alpha + beta) / 2 - i() * (alpha - beta) / 2 * complex(3).pow(0.5);
+            break;
+        }
+        case 4: {
+            complex A = (*this)[4], B = (*this)[3], C = (*this)[2], D = (*this)[1], E = (*this)[0];
+            complex alpha = -(complex(3) * B.pow(2)) / (complex(8) * A.pow(2)) + C / A;
+            complex beta = B.pow(3) / (complex(8) * A.pow(3)) - B * C / (complex(2) * A.pow(2)) + D / A;
+            complex gamma =
+                    -(complex(3) * B.pow(4)) / (complex(256) * A.pow(4)) + B.pow(2) * C / (complex(16) * A.pow(3)) -
+                    B * D / (complex(4) * A.pow(2)) + E / A;
+            if (beta == complex(0)) {
+                res[0] = -B / (complex(4) * A) + ((-alpha + (alpha.pow(2) - complex(4) * gamma).pow(0.5)) / 2).pow(0.5);
+                res[1] = -B / (complex(4) * A) + ((-alpha - (alpha.pow(2) - complex(4) * gamma).pow(0.5)) / 2).pow(0.5);
+                res[2] = -B / (complex(4) * A) - ((-alpha + (alpha.pow(2) - complex(4) * gamma).pow(0.5)) / 2).pow(0.5);
+                res[3] = -B / (complex(4) * A) - ((-alpha - (alpha.pow(2) - complex(4) * gamma).pow(0.5)) / 2).pow(0.5);
+            } else {
+                complex P = -alpha.pow(2) / complex(12) - gamma;
+                complex Q = -alpha.pow(3) / complex(108) + alpha * gamma / complex(3) - beta.pow(2) / complex(8);
+                complex R = -Q / 2 + (Q.pow(2) / complex(4) + P.pow(3) / complex(27)).pow(2);
+                complex U = R.pow(1.0 / 3.0);
+                complex y{};
+                if (U == complex(0)) {
+                    y = -complex(5.0 / 6.0) * alpha + U - Q.pow(1.0 / 3.0);
+                } else {
+                    y = -complex(5.0 / 6.0) * alpha + U - P / (complex(3) * U);
+                }
+                complex W = (alpha + y * complex(2));
+                res[0] = -B / (complex(4) * A) +
+                         (W + (-(complex(3) * alpha + complex(2) * y + complex(2) * beta / W)).pow(0.5)) / complex(2);
+                res[1] = -B / (complex(4) * A) +
+                         (-W + (-(complex(3) * alpha + complex(2) * y - complex(2) * beta / W)).pow(0.5)) / complex(2);
+                res[2] = -B / (complex(4) * A) +
+                         (W - (-(complex(3) * alpha + complex(2) * y + complex(2) * beta / W)).pow(0.5)) / complex(2);
+                res[3] = -B / (complex(4) * A) +
+                         (-W - (-(complex(3) * alpha + complex(2) * y - complex(2) * beta / W)).pow(0.5)) / complex(2);
+            }
+            break;
+        }
+        default: {
 
+        }
     }
     return res;
 }
