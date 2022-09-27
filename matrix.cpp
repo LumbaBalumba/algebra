@@ -350,9 +350,9 @@ size_t matrix::def() {
     return std::min(rows(), cols()) - rank();
 }
 
-polynomial matrix::char_pol() const {
+/*polynomial matrix::char_pol() const {
     if (rows() != cols()) throw std::out_of_range("Incorrect matrix size");
     polynomial res(rows());
 
     return res;
-}
+}*/
