@@ -55,7 +55,7 @@ public:
 
     matrix &operator/=(const complex &z);
 
-    vec &operator[](size_t index);
+    vec &operator[](size_t index) const;
 
     void row_swap(size_t dest, size_t src);
 
@@ -99,7 +99,7 @@ public:
 
     size_t def();
 
-    complex minor(size_t row, size_t col, size_t size);
+    complex minor(size_t row, size_t col, size_t size) const;
 
     polynomial char_pol() const;
 };

@@ -143,7 +143,7 @@ matrix &matrix::operator/=(const complex &z) {
     return *this = *this / z;
 }
 
-vec &matrix::operator[](size_t index) {
+vec &matrix::operator[](size_t index) const {
     return arr[index];
 }
 
@@ -350,9 +350,33 @@ size_t matrix::def() {
     return std::min(rows(), cols()) - rank();
 }
 
-/*polynomial matrix::char_pol() const {
+complex matrix::minor(size_t row, size_t col, size_t size) const {
+    if (row + size >= rows() || col + size >= cols() || size == 0 || rows() != cols()) {
+        throw std::out_of_range("Incorrect sizes");
+    }
+    matrix res(size, size);
+    for (size_t i = 0; i < size; ++i) {
+        for (size_t j = 0; j < size; ++j) {
+            res[i][j] = (*this)[row + i][col + j];
+        }
+    }
+    return res.det();
+}
+
+
+polynomial matrix::char_pol() const {
     if (rows() != cols()) throw std::out_of_range("Incorrect matrix size");
     polynomial res(rows());
-
+    for (size_t i = 0; i <= rows(); ++i) {
+        complex s(0);
+        if (i == rows()) {
+            s = complex(1);
+        } else {
+            for (size_t j = 0; j < i + 1; ++j) {
+                s += this->minor(j, j, rows() - i);
+            }
+        }
+        res[i] = (i % 2 == 0) ? s : -s;
+    }
     return res;
-}*/
+}
