@@ -247,7 +247,7 @@ std::vector<complex> polynomial::roots() const {
                 complex common_roots[sz] = {complex(0), complex(1), complex(-1), complex(i()), complex(-i()),
                                             complex(2),
                                             complex(-2)};
-                for (auto & common_root : common_roots) {
+                for (auto &common_root: common_roots) {
                     if (tmp(common_root) == complex(0)) {
                         polynomial d(1);
                         d[0] = 1;

@@ -99,6 +99,8 @@ public:
 
     size_t def();
 
+    complex minor(size_t row, size_t col, size_t size);
+
     polynomial char_pol() const;
 };
 
