@@ -256,7 +256,7 @@ std::vector<complex> polynomial::roots() const {
                         tmp /= d;
                     }
                 }
-                ///IDK LOL
+                //IDK LOL
             }
         }
     }

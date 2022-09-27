@@ -8,7 +8,7 @@
 #include <iostream>
 #include <cmath>
 
-const double eps = 0.00001;
+static const double eps = 0.00001;
 
 class complex
 {
@@ -78,5 +78,6 @@ complex sin(const complex &z);
 complex cos(const complex &z);
 
 complex exp(const complex &z);
+
 
 #endif //ALGEBRA_COMPLEX_H
