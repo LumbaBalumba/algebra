@@ -253,7 +253,6 @@ complex matrix::det() {
     for (size_t i = 0; i < rows(); ++i) {
         res *= tmp[i][i];
     }
-    //std::cout << tmp << std::endl;
     return res;
 }
 
