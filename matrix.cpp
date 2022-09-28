@@ -8,6 +8,7 @@ matrix::matrix(size_t rows, size_t cols)
         : _size(rows), arr(new vec[rows]) {
     for (size_t i = 0; i < rows; ++i) {
         arr[i] = vec(cols);
+        arr[i].fill(0);
     }
 }
 
@@ -19,8 +20,9 @@ matrix::matrix(const matrix &other)
 }
 
 matrix::matrix(const complex &lambda, size_t rows, size_t cols)
-        : _size(rows), arr(new vec[cols]) {
+        : _size(rows), arr(new vec[rows]) {
     for (size_t j = 0; j < rows; ++j) {
+        arr[j] = vec(cols);
         arr[j].fill(complex(0));
         if (j < cols)
             arr[j][j] = lambda;
@@ -251,6 +253,7 @@ complex matrix::det() {
     for (size_t i = 0; i < rows(); ++i) {
         res *= tmp[i][i];
     }
+    //std::cout << tmp << std::endl;
     return res;
 }
 
@@ -258,7 +261,7 @@ complex matrix::alg_complement(size_t row, size_t col) {
     if (rows() != cols())
         throw std::out_of_range("Incorrect matrix size");
     if (rows() == 1)
-        return complex(1);
+        return 1;
     matrix res(rows() - 1, cols() - 1);
     for (size_t i = 0; i < rows(); ++i) {
         for (size_t j = 0; j < cols(); ++j) {

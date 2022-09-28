@@ -56,7 +56,7 @@ vec vec::operator-(const vec &other) {
     }
     vec res(other);
     for (int j = 0; j < _size; ++j) {
-        res.arr[j] = arr[j] + other.arr[j];
+        res.arr[j] = arr[j] - other.arr[j];
     }
     return res;
 }

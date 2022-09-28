@@ -4,17 +4,14 @@
 
 #include "polynomial.h"
 
-polynomial::polynomial(size_t size)
-        : vec(size + 1) {
+polynomial::polynomial(size_t size) : vec(size + 1) {
     fill(0);
 }
 
-polynomial::polynomial(const polynomial &other)
-        : vec(other) {
+polynomial::polynomial(const polynomial &other) : vec(other) {
 }
 
-polynomial::polynomial(const vec &other)
-        : vec(other) {
+polynomial::polynomial(const vec &other) : vec(other) {
 }
 
 polynomial::polynomial(size_t size, complex arr[]) : vec(size) {
