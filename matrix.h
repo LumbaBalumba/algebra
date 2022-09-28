@@ -93,13 +93,13 @@ public:
 
     friend std::istream &operator>>(std::istream &in, matrix &m);
 
-    vec operator()(vec &v);
+    vec operator()(vec &v) const;
 
     size_t rank();
 
     size_t def();
 
-    complex minor(size_t row, size_t col, size_t size) const;
+    complex minor(size_t rows_arr[], size_t cols_arr[], size_t size) const;
 
     polynomial char_pol() const;
 };

@@ -308,7 +308,7 @@ std::istream &operator>>(std::istream &in, matrix &m) {
     return in;
 }
 
-vec matrix::operator()(vec &v) {
+vec matrix::operator()(vec &v) const {
     if (v.size() != cols())
         throw std::out_of_range("Incorrect matrix and vector size");
     vec res(rows());
@@ -350,16 +350,14 @@ size_t matrix::def() {
     return std::min(rows(), cols()) - rank();
 }
 
-complex matrix::minor(size_t row, size_t col, size_t size) const {
-    if (row + size >= rows() || col + size >= cols() || size == 0 || rows() != cols()) {
-        throw std::out_of_range("Incorrect sizes");
-    }
+/*complex matrix::minor(size_t rows_arr[], size_t cols_arr[], size_t size) const {
     matrix res(size, size);
     for (size_t i = 0; i < size; ++i) {
         for (size_t j = 0; j < size; ++j) {
-            res[i][j] = (*this)[row + i][col + j];
+            res[i][j] = (*this)[rows_arr[i]][cols_arr[j]];
         }
     }
+    //std::cout << res << std::endl;
     return res.det();
 }
 
@@ -372,11 +370,13 @@ polynomial matrix::char_pol() const {
         if (i == rows()) {
             s = complex(1);
         } else {
-            for (size_t j = 0; j < i + 1; ++j) {
-                s += this->minor(j, j, rows() - i);
-            }
+            size_t size = i + 1;
+            size_t rows_arr[size];
+            size_t cols_arr[size];
+            //Insert good code here
+            res[i] += this->minor(rows_arr, cols_arr, size);
         }
         res[i] = (i % 2 == 0) ? s : -s;
     }
     return res;
-}
+}*/
