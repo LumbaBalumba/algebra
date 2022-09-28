@@ -17,7 +17,7 @@ polynomial::polynomial(const vec &other)
         : vec(other) {
 }
 
-polynomial::polynomial(size_t size, complex arr[size]) : vec(size) {
+polynomial::polynomial(size_t size, complex arr[]) : vec(size) {
     for (int i = 0; i < size; ++i) {
         (*this)[i] = arr[i];
     }

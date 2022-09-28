@@ -8,11 +8,11 @@
 double pi() {
     double res = 1;
     double tmp = sqrt(2);
-    for (int i = 0; i < 10; ++i){
-        res *= tmp/2;
+    for (int i = 0; i < 10; ++i) {
+        res *= tmp / 2;
         tmp = sqrt(2 + tmp);
     }
-    return res;
+    return 2 / res;
 }
 
 complex i() {
