@@ -50,7 +50,7 @@ bool matrix::real() {
     return true;
 }
 
-matrix matrix::operator+(const matrix &other) {
+matrix matrix::operator+(const matrix &other) const {
     if (this->rows() != other.rows() || this->cols() != other.cols())
         throw std::out_of_range("Incorrect matrix size");
     matrix res(rows(), cols());
@@ -60,7 +60,7 @@ matrix matrix::operator+(const matrix &other) {
     return res;
 }
 
-matrix matrix::operator-(const matrix &other) {
+matrix matrix::operator-(const matrix &other) const {
     if (this->rows() != other.rows() || this->cols() != other.cols())
         throw std::out_of_range("Incorrect matrix size");
     matrix res(rows(), cols());
@@ -70,7 +70,7 @@ matrix matrix::operator-(const matrix &other) {
     return res;
 }
 
-matrix matrix::operator-() {
+matrix matrix::operator-() const {
     matrix res(*this);
     for (size_t i = 0; i < rows(); ++i) {
         for (size_t j = 0; j < cols(); ++j) {
@@ -80,7 +80,7 @@ matrix matrix::operator-() {
     return res;
 }
 
-matrix matrix::operator*(const complex &z) {
+matrix matrix::operator*(const complex &z) const {
     matrix res(rows(), cols());
     for (size_t j = 0; j < _size; ++j) {
         res[j] = this->arr[j] * z;
@@ -88,7 +88,7 @@ matrix matrix::operator*(const complex &z) {
     return res;
 }
 
-matrix matrix::operator/(const complex &z) {
+matrix matrix::operator/(const complex &z) const {
     matrix res(rows(), cols());
     for (size_t j = 0; j < _size; ++j) {
         res[j] = this->arr[j] / z;
@@ -96,7 +96,7 @@ matrix matrix::operator/(const complex &z) {
     return res;
 }
 
-matrix matrix::operator*(const matrix &other) {
+matrix matrix::operator*(const matrix &other) const {
     if (cols() != other.rows())
         throw std::out_of_range("Incorrect matrix size");
     matrix res(rows(), other.cols());
@@ -224,10 +224,10 @@ matrix matrix::conjugate() {
 matrix matrix::upper_triangle() {
     matrix res(*this);
     for (size_t i = 0; i < rows() - 1; ++i) {
-        if (res[i][i].abs() < eps) {
+        if (res[i][i] == 0) {
             bool flag = false;
             for (size_t j = i + 1; j < rows() && !flag; ++j) {
-                if (res[j][i].abs() > eps) {
+                if (res[j][i] != 0) {
                     res[j] *= complex(-1);
                     res.row_swap(i, j);
                     flag = true;
@@ -327,7 +327,7 @@ size_t matrix::rank() {
     if (rows() < cols()) {
         for (size_t i = 0; i < rows(); ++i) {
             for (size_t j = 0; j < cols(); ++j) {
-                if (tmp[i][j].abs() >= eps) {
+                if (tmp[i][j] != 0) {
                     ++res;
                     break;
                 }
@@ -336,7 +336,7 @@ size_t matrix::rank() {
     } else {
         for (size_t i = 0; i < cols(); ++i) {
             for (size_t j = 0; j < rows(); ++j) {
-                if (tmp[j][i].abs() >= eps) {
+                if (tmp[j][i] != 0) {
                     ++res;
                     break;
                 }
@@ -350,33 +350,14 @@ size_t matrix::def() {
     return std::min(rows(), cols()) - rank();
 }
 
-/*complex matrix::minor(size_t rows_arr[], size_t cols_arr[], size_t size) const {
-    matrix res(size, size);
-    for (size_t i = 0; i < size; ++i) {
-        for (size_t j = 0; j < size; ++j) {
-            res[i][j] = (*this)[rows_arr[i]][cols_arr[j]];
-        }
-    }
-    //std::cout << res << std::endl;
-    return res.det();
-}
-
-
 polynomial matrix::char_pol() const {
-    if (rows() != cols()) throw std::out_of_range("Incorrect matrix size");
-    polynomial res(rows());
-    for (size_t i = 0; i <= rows(); ++i) {
-        complex s(0);
-        if (i == rows()) {
-            s = complex(1);
-        } else {
-            size_t size = i + 1;
-            size_t rows_arr[size];
-            size_t cols_arr[size];
-            //Insert good code here
-            res[i] += this->minor(rows_arr, cols_arr, size);
-        }
-        res[i] = (i % 2 == 0) ? s : -s;
+    if (rows() != cols()) {
+        throw std::out_of_range("Incorrect matrix sizes");
     }
-    return res;
-}*/
+    std::vector<std::pair<complex, complex>> v(rows() + 1);
+    for (size_t i = 0; i < rows() + 1; ++i) {
+        complex y = (*this - matrix((double) i, rows(), cols())).det();
+        v[i] = std::pair<complex, complex>((double) i, y);
+    }
+    return Lagrange(v);
+}

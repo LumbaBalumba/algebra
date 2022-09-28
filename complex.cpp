@@ -4,6 +4,7 @@
 
 #include "complex.h"
 
+static const double eps = 0.00001;
 
 double pi() {
     double res = 1;

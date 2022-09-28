@@ -33,17 +33,17 @@ public:
 
     matrix &operator=(const matrix &other);
 
-    matrix operator+(const matrix &other);
+    matrix operator+(const matrix &other) const;
 
-    matrix operator-(const matrix &other);
+    matrix operator-(const matrix &other) const;
 
-    matrix operator-();
+    matrix operator-() const;
 
-    matrix operator*(const matrix &other);
+    matrix operator*(const matrix &other)const;
 
-    matrix operator*(const complex &z);
+    matrix operator*(const complex &z)const;
 
-    matrix operator/(const complex &z);
+    matrix operator/(const complex &z)const;
 
     matrix &operator+=(const matrix &other);
 
@@ -98,8 +98,6 @@ public:
     size_t rank();
 
     size_t def();
-
-    complex minor(size_t rows_arr[], size_t cols_arr[], size_t size) const;
 
     polynomial char_pol() const;
 };

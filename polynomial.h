@@ -13,6 +13,8 @@ class polynomial : public vec
 public:
     using vec::operator/;
     using vec::operator*;
+    using vec::operator*=;
+    using vec::operator/=;
     using vec::real;
 
     polynomial() = default;
@@ -54,5 +56,6 @@ public:
     complex operator()(const complex &z) const;
 };
 
+polynomial Lagrange(const std::vector<std::pair<complex, complex>> &v);
 
 #endif //ALGEBRA_POLYNOMIAL_H

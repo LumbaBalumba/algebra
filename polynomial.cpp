@@ -26,7 +26,7 @@ polynomial::polynomial(size_t size, complex arr[]) : vec(size) {
 size_t polynomial::deg() const {
     size_t res = 0;
     for (int i = 0; i < size(); ++i) {
-        if ((*this)[i].abs() >= eps)
+        if ((*this)[i] != 0)
             res = i;
     }
     return res;
@@ -145,7 +145,7 @@ std::istream &operator>>(std::istream &in, polynomial &p) {
 std::ostream &operator<<(std::ostream &out, const polynomial &p) {
     out << p[0];
     for (size_t i = 1; i <= p.deg(); ++i) {
-        if (p[i].abs() > eps) {
+        if (p[i] != 0) {
             if (p[i] != 1)
                 out << " + (" << p[i] << ")x";
             else out << " + x";
@@ -267,3 +267,25 @@ std::vector<complex> polynomial::roots() const {
     return res;
 }
 
+static polynomial l(size_t index, const std::vector<std::pair<complex, complex>> &v) {
+    polynomial res(0);
+    res[0] = 1;
+    for (int i = 0; i < v.size(); ++i) {
+        if (i != index) {
+            polynomial tmp(1);
+            tmp[0] = -v[i].first;
+            tmp[1] = 1;
+            tmp /= v[index].first - v[i].first;
+            res *= tmp;
+        }
+    }
+    return res;
+}
+
+polynomial Lagrange(const std::vector<std::pair<complex, complex>> &v) {
+    polynomial res(v.size() - 1);
+    for (size_t i = 0; i < v.size(); ++i) {
+        res += l(i, v) * v[i].second;
+    }
+    return res;
+}
