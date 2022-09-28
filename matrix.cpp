@@ -363,3 +363,15 @@ polynomial matrix::char_pol() const {
     }
     return Lagrange(v);
 }
+
+std::vector<complex> matrix::eigenvalues() const {
+    std::vector<complex> v = char_pol().roots();
+    struct
+    {
+        bool operator()(const complex &a, const complex &b) const {
+            return a.abs() < b.abs();
+        }
+    } cmp;
+    std::sort(v.begin(), v.end(), cmp);
+    return v;
+}

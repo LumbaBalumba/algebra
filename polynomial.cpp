@@ -168,11 +168,11 @@ complex polynomial::operator()(const complex &z) const {
 }
 
 std::vector<complex> polynomial::roots() const {
-    std::vector<complex> res(deg());
+    std::vector<complex> res;
     polynomial tmp = (*this);
     bool flag = true;
-    while (res.size() < deg() && flag) {
-        switch (deg()) {
+    while (tmp.deg() > 0 && flag) {
+        switch (tmp.deg()) {
             case 0:
                 flag = false;
                 break;
@@ -182,9 +182,10 @@ std::vector<complex> polynomial::roots() const {
                 break;
             }
             case 2: {
-                complex D = (tmp[1].pow(2) - tmp[0] * tmp[2] * 4.0).pow(0.5);
-                res.push_back((-tmp[1] + D) / 2 / tmp[0]);
-                res.push_back((-tmp[1] - D) / 2 / tmp[0]);
+                complex a = tmp[2], b = tmp[1], c = tmp[0];
+                complex D = b.pow(2) - a * c * 4;
+                res.push_back((-b + D.pow(0.5)) / (a * 2));
+                res.push_back((-b - D.pow(0.5)) / (a * 2));
                 flag = false;
                 break;
             }

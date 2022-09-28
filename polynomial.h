@@ -7,6 +7,7 @@
 
 #include "vec.h"
 #include <vector>
+#include <algorithm>
 
 class polynomial : public vec
 {

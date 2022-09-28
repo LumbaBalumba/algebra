@@ -100,6 +100,8 @@ public:
     size_t def();
 
     polynomial char_pol() const;
+
+    std::vector<complex> eigenvalues() const;
 };
 
 #endif // ALGEBRA_MATRIX_H

@@ -4,12 +4,12 @@
 
 #include "complex.h"
 
-static const double eps = 0.00001;
+static const double eps = 0.0000001;
 
 double pi() {
     double res = 1;
     double tmp = sqrt(2);
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 50; ++i) {
         res *= tmp / 2;
         tmp = sqrt(2 + tmp);
     }
@@ -152,8 +152,12 @@ std::istream &operator>>(std::istream &in, complex &z) {
 }
 
 complex complex::pow(double x) const {
-    double phi = arg() * x, r = std::pow(abs(), x);
-    return {r * std::cos(phi), r * std::sin(phi)};
+    if (*this == 0) {
+        return 0;
+    } else {
+        double phi = arg() * x, r = std::pow(abs(), x);
+        return {r * std::cos(phi), r * std::sin(phi)};
+    }
 }
 
 complex sin(const complex &z) {
