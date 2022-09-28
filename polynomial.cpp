@@ -6,7 +6,7 @@
 
 polynomial::polynomial(size_t size)
         : vec(size + 1) {
-    fill(complex(0));
+    fill(0);
 }
 
 polynomial::polynomial(const polynomial &other)
@@ -15,6 +15,12 @@ polynomial::polynomial(const polynomial &other)
 
 polynomial::polynomial(const vec &other)
         : vec(other) {
+}
+
+polynomial::polynomial(size_t size, complex arr[size]) : vec(size) {
+    for (int i = 0; i < size; ++i) {
+        (*this)[i] = arr[i];
+    }
 }
 
 size_t polynomial::deg() const {
@@ -72,7 +78,7 @@ polynomial polynomial::operator-(const polynomial &other) {
 
 polynomial polynomial::operator*(const polynomial &other) {
     polynomial res(deg() + other.deg());
-    res.fill(complex(0));
+    res.fill(0);
     for (size_t i = 0; i <= deg(); ++i) {
         for (size_t j = 0; j <= other.deg(); ++j) {
             res[i + j] += (*this)[i] * other[j];
@@ -88,7 +94,7 @@ polynomial polynomial::operator/(const polynomial &other) {
         return res;
     } else {
         polynomial res(deg() - other.deg()), r = *this;
-        res.fill(complex(0));
+        res.fill(0);
         size_t n = deg(), m = other.deg();
         for (size_t i = n; i >= m; --i) {
             res[i - m] = r[i] / other[m];
@@ -124,7 +130,7 @@ polynomial polynomial::derivative() const {
     }
     polynomial res((vec(deg() - 1)));
     for (size_t i = 0; i < deg() - 1; ++i) {
-        res[i] = (*this)[i + 1] * complex(i + 1);
+        res[i] = (*this)[i + 1] * ((double) i + 1);
     }
     return res;
 }
@@ -140,7 +146,7 @@ std::ostream &operator<<(std::ostream &out, const polynomial &p) {
     out << p[0];
     for (size_t i = 1; i <= p.deg(); ++i) {
         if (p[i].abs() > eps) {
-            if (p[i] != complex(1))
+            if (p[i] != 1)
                 out << " + (" << p[i] << ")x";
             else out << " + x";
         }
@@ -152,7 +158,7 @@ std::ostream &operator<<(std::ostream &out, const polynomial &p) {
 complex polynomial::operator()(const complex &z) const {
     complex res(0);
     for (size_t i = 0; i <= deg(); ++i) {
-        if ((*this)[i] != complex(0)) {
+        if ((*this)[i] != 0) {
             complex tmp(1);
             for (size_t j = 0; j < i; ++j) {
                 tmp *= z;
@@ -179,16 +185,16 @@ std::vector<complex> polynomial::roots() const {
                 break;
             }
             case 2: {
-                complex D = (tmp[1].pow(2) - complex(4) * tmp[0] * tmp[2]).pow(0.5);
+                complex D = (tmp[1].pow(2) - tmp[0] * tmp[2] * 4.0).pow(0.5);
                 res.push_back((-tmp[1] + D) / 2 / tmp[0]);
                 res.push_back((-tmp[1] - D) / 2 / tmp[0]);
                 flag = false;
                 break;
             }
             case 3: {
-                complex p = (complex(3) * tmp[3] * tmp[1] - tmp[2].pow(2)) / (complex(3) * tmp[3].pow(2));
-                complex q = (complex(2) * tmp[2].pow(3) - complex(9) * tmp[3] * tmp[2] * tmp[1] +
-                             complex(27) * tmp[3].pow(2) * tmp[0]) / (complex(27) * tmp[3].pow(3));
+                complex p = (tmp[3] * tmp[1] * 3.0 - tmp[2].pow(2)) / (tmp[3].pow(2) * 3);
+                complex q = (tmp[2].pow(3) * 2 - tmp[3] * tmp[2] * tmp[1] * 9 +
+                             tmp[3].pow(2) * tmp[0]) * 27 / (tmp[3].pow(3) * 27);
                 complex Q = (p / 3).pow(3) + (q / 2).pow(2);
                 complex alpha = (-q / 2 + Q.pow(0.5)).pow(1.0 / 3.0);
                 complex beta = (-q / 2 - Q.pow(0.5)).pow(1.0 / 3.0);
@@ -244,11 +250,9 @@ std::vector<complex> polynomial::roots() const {
             }
             default: {
                 const size_t sz = 7;
-                complex common_roots[sz] = {complex(0), complex(1), complex(-1), complex(i()), complex(-i()),
-                                            complex(2),
-                                            complex(-2)};
+                complex common_roots[sz] = {0, 1, -1, i(), -i(), 2, -2};
                 for (auto &common_root: common_roots) {
-                    if (tmp(common_root) == complex(0)) {
+                    if (tmp(common_root) == 0) {
                         polynomial d(1);
                         d[0] = 1;
                         d[1] = -common_root;

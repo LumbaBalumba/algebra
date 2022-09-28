@@ -17,7 +17,7 @@ public:
 
     complex() = default;
 
-    explicit complex(double x);
+    complex(double x);
 
     complex(double re, double im);
 

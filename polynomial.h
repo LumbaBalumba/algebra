@@ -23,6 +23,8 @@ public:
 
     polynomial(const vec &other);
 
+    polynomial(size_t size, complex arr[size]);
+
     polynomial operator+(const polynomial &other);
 
     polynomial operator-(const polynomial &other);
