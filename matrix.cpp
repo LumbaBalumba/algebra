@@ -366,12 +366,16 @@ polynomial matrix::char_pol() const {
 
 std::vector<complex> matrix::eigenvalues() const {
     std::vector<complex> v = char_pol().roots();
-    struct
-    {
-        bool operator()(const complex &a, const complex &b) const {
+    std::sort(v.begin(), v.end(), [](const complex &a, const complex &b) {
+        if (a.abs() != b.abs()) {
             return a.abs() < b.abs();
+        } else if (complex(a.im) != complex(b.im) || a.im * b.im < 0) {
+            return a.im < b.im;
+        } else if (complex(a.re) != complex(b.re) || a.re * b.re < 0) {
+            return a.re < b.re;
+        } else {
+            return true;
         }
-    } cmp;
-    std::sort(v.begin(), v.end(), cmp);
+    });
     return v;
 }

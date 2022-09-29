@@ -65,6 +65,10 @@ bool complex::real() const {
     return fabs(im) < eps;
 }
 
+bool complex::imaginary() const {
+    return fabs(re) < eps;
+}
+
 complex complex::operator+(const complex &other) const {
     return {re + other.re, im + other.im};
 }

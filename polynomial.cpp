@@ -143,7 +143,7 @@ std::ostream &operator<<(std::ostream &out, const polynomial &p) {
     out << p[0];
     for (size_t i = 1; i <= p.deg(); ++i) {
         if (p[i] != 0) {
-            if (p[i] != 1)
+            if (!p[i].real() && !p[i].imaginary())
                 out << " + (" << p[i] << ")x";
             else out << " + x";
         }
@@ -190,15 +190,17 @@ std::vector<complex> polynomial::roots() const {
                 break;
             }
             case 3: {
-                complex p = (tmp[3] * tmp[1] * 3.0 - tmp[2].pow(2)) / (tmp[3].pow(2) * 3);
-                complex q = (tmp[2].pow(3) * 2 - tmp[3] * tmp[2] * tmp[1] * 9 +
-                             tmp[3].pow(2) * tmp[0]) * 27 / (tmp[3].pow(3) * 27);
+                complex a = tmp[3], b = tmp[2], c = tmp[1], d = tmp[0];
+                complex p = (a * c * 3 - b * b) / (a * a * 3);
+                complex q = (b * b * b * 2 - a * b * c * 9 + a * a * d * 27) / (a * a * a * 27);
                 complex Q = (p / 3).pow(3) + (q / 2).pow(2);
+                //std::cout << p << " " << q << " " << Q << std::endl;
                 complex alpha = (-q / 2 + Q.pow(0.5)).pow(1.0 / 3.0);
-                complex beta = (-q / 2 - Q.pow(0.5)).pow(1.0 / 3.0);
-                res.push_back(alpha + beta);
-                res.push_back(-(alpha + beta) / 2 + i() * (alpha - beta) / 2 * complex(3).pow(0.5));
-                res.push_back(-(alpha + beta) / 2 - i() * (alpha - beta) / 2 * complex(3).pow(0.5));
+                //complex beta = (-q / 2 - Q.pow(0.5)).pow(1.0 / 3.0);
+                complex beta = -p / (alpha * 3);
+                res.push_back(alpha + beta - b / (a * 3));
+                res.push_back(-(alpha + beta) / 2 + i() * (alpha - beta) / 2 * sqrt(3) - b / (a * 3));
+                res.push_back(-(alpha + beta) / 2 - i() * (alpha - beta) / 2 * sqrt(3) - b / (a * 3));
                 flag = false;
                 break;
             }

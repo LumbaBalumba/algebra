@@ -25,6 +25,8 @@ public:
 
     bool real() const;
 
+    bool imaginary() const;
+
     complex conjugate() const;
 
     double abs() const;
