@@ -143,9 +143,11 @@ std::ostream &operator<<(std::ostream &out, const polynomial &p) {
     out << p[0];
     for (size_t i = 1; i <= p.deg(); ++i) {
         if (p[i] != 0) {
-            if (!p[i].real() && !p[i].imaginary())
+            if (p[i] != 1) {
                 out << " + (" << p[i] << ")x";
-            else out << " + x";
+            } else {
+                out << " + x";
+            }
         }
         if (i != 1) out << "^" << i;
     }
@@ -172,6 +174,19 @@ std::vector<complex> polynomial::roots() const {
     polynomial tmp = (*this);
     bool flag = true;
     while (tmp.deg() > 0 && flag) {
+        const size_t sz = 7;
+        complex common_roots[sz] = {0, 1, -1, i(), -i(), 2, -2};
+        for (size_t i = 0; i < sz;) {
+            if (tmp(common_roots[i]) == 0) {
+                polynomial d(1);
+                d[0] = 1;
+                d[1] = -common_roots[i];
+                res.push_back(common_roots[i]);
+                tmp /= d;
+            } else {
+                ++i;
+            }
+        }
         switch (tmp.deg()) {
             case 0:
                 flag = false;
@@ -249,17 +264,7 @@ std::vector<complex> polynomial::roots() const {
                 break;
             }
             default: {
-                const size_t sz = 7;
-                complex common_roots[sz] = {0, 1, -1, i(), -i(), 2, -2};
-                for (auto &common_root: common_roots) {
-                    if (tmp(common_root) == 0) {
-                        polynomial d(1);
-                        d[0] = 1;
-                        d[1] = -common_root;
-                        res.push_back(common_root);
-                        tmp /= d;
-                    }
-                }
+
                 //IDK LOL
             }
         }

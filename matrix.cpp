@@ -379,3 +379,13 @@ std::vector<complex> matrix::eigenvalues() const {
     });
     return v;
 }
+
+bool matrix::nilpotent() const {
+    std::vector<complex> v = eigenvalues();
+    for (auto & i : v) {
+        if (i != 0) {
+            return false;
+        }
+    }
+    return true;
+}

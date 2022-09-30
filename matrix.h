@@ -102,6 +102,8 @@ public:
     polynomial char_pol() const;
 
     std::vector<complex> eigenvalues() const;
+
+    bool nilpotent() const;
 };
 
 #endif // ALGEBRA_MATRIX_H
