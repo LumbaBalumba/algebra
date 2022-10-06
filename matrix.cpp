@@ -381,9 +381,9 @@ std::vector<complex> matrix::eigenvalues() const {
 }
 
 bool matrix::nilpotent() const {
-    std::vector<complex> v = eigenvalues();
-    for (auto & i : v) {
-        if (i != 0) {
+    polynomial p = char_pol();
+    for (size_t i = 0; i < p.deg(); ++i) {
+        if (p[i] != 0) {
             return false;
         }
     }

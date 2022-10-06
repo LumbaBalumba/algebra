@@ -29,26 +29,23 @@ double complex::abs() const {
 }
 
 double complex::arg() const {
-    if (abs() < eps)
-        throw std::overflow_error("Zero division error");
-    else if (re > 0 && im == 0)
+    if (abs() < eps) { throw std::overflow_error("Zero division error (arg)"); }
+    else if (re > 0 && fabs(im) < eps)
         return 0;
     else if (re > 0 && im > 0)
         return atan(im / re);
-    else if (re == 0 && im > 0)
+    else if (fabs(re) < eps && im > 0)
         return pi() / 2;
     else if (re < 0 && im > 0)
         return pi() + atan(im / re);
-    else if (re < 0 && im == 0)
+    else if (re < 0 && fabs(im) < eps)
         return pi();
     else if (re < 0 && im < 0)
         return pi() + atan(im / re);
-    else if (re == 0 && im < 0)
+    else if (fabs(re) < eps && im < 0)
         return pi() * 3.0 / 2.0;
     else if (re > 0 && im < 0)
         return pi() * 2.0 + atan(re / im);
-    else
-        return pi() / 4;
 }
 
 complex::complex(double x)
@@ -94,7 +91,9 @@ complex complex::operator*(const complex &other) const {
 }
 
 complex complex::operator/(const complex &other) const {
-    if (other.abs() < eps) throw std::overflow_error("Zero division error");
+    if (other.abs() < eps) {
+        throw std::overflow_error("Zero division error (/)");
+    }
     complex res = (*this) * other.conjugate();
     res.re /= other.abs() * other.abs();
     res.im /= other.abs() * other.abs();
@@ -141,10 +140,14 @@ std::ostream &operator<<(std::ostream &out, const complex &z) {
     if (fabs(z.im) < eps) {
         out << z.re;
     } else if (fabs(z.re) < eps) {
-        if (fabs(z.im - 1) < eps) out << "i";
+        if (fabs(z.im - 1.0) < eps) out << "i";
         else out << z.im << "i";
     } else {
-        out << z.re << " + " << z.im << "i";
+        if (z.im >= 0) {
+            out << z.re << " + " << z.im << "i";
+        } else {
+            out << z.re << " " << z.im << "i";
+        }
     }
     return out;
 }

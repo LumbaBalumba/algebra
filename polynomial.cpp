@@ -157,14 +157,12 @@ std::ostream &operator<<(std::ostream &out, const polynomial &p) {
 complex polynomial::operator()(const complex &z) const {
     complex res(0);
     for (size_t i = 0; i <= deg(); ++i) {
-        if ((*this)[i] != 0) {
-            complex tmp(1);
-            for (size_t j = 0; j < i; ++j) {
-                tmp *= z;
-            }
-            tmp *= (*this)[i];
-            res += tmp;
+        complex tmp(1);
+        for (size_t j = 0; j < i; ++j) {
+            tmp *= z;
         }
+        tmp *= (*this)[i];
+        res += tmp;
     }
     return res;
 }
@@ -179,10 +177,11 @@ std::vector<complex> polynomial::roots() const {
         for (size_t i = 0; i < sz;) {
             if (tmp(common_roots[i]) == 0) {
                 polynomial d(1);
-                d[0] = 1;
-                d[1] = -common_roots[i];
+                d[0] = -common_roots[i];
+                d[1] = 1;
                 res.push_back(common_roots[i]);
                 tmp /= d;
+                //std::cout << tmp << std::endl;
             } else {
                 ++i;
             }
@@ -209,10 +208,8 @@ std::vector<complex> polynomial::roots() const {
                 complex p = (a * c * 3 - b * b) / (a * a * 3);
                 complex q = (b * b * b * 2 - a * b * c * 9 + a * a * d * 27) / (a * a * a * 27);
                 complex Q = (p / 3).pow(3) + (q / 2).pow(2);
-                //std::cout << p << " " << q << " " << Q << std::endl;
                 complex alpha = (-q / 2 + Q.pow(0.5)).pow(1.0 / 3.0);
-                //complex beta = (-q / 2 - Q.pow(0.5)).pow(1.0 / 3.0);
-                complex beta = -p / (alpha * 3);
+                complex beta = (-q / 2 - Q.pow(0.5)).pow(1.0 / 3.0);
                 res.push_back(alpha + beta - b / (a * 3));
                 res.push_back(-(alpha + beta) / 2 + i() * (alpha - beta) / 2 * sqrt(3) - b / (a * 3));
                 res.push_back(-(alpha + beta) / 2 - i() * (alpha - beta) / 2 * sqrt(3) - b / (a * 3));
@@ -221,44 +218,32 @@ std::vector<complex> polynomial::roots() const {
             }
             case 4: {
                 complex A = tmp[4], B = tmp[3], C = tmp[2], D = tmp[1], E = tmp[0];
-                complex alpha = -(complex(3) * B.pow(2)) / (complex(8) * A.pow(2)) + C / A;
-                complex beta = B.pow(3) / (complex(8) * A.pow(3)) - B * C / (complex(2) * A.pow(2)) + D / A;
-                complex gamma =
-                        -(complex(3) * B.pow(4)) / (complex(256) * A.pow(4)) + B.pow(2) * C / (complex(16) * A.pow(3)) -
-                        B * D / (complex(4) * A.pow(2)) + E / A;
-                if (beta == complex(0)) {
-                    res.push_back(-B / (complex(4) * A) +
-                                  ((-alpha + (alpha.pow(2) - complex(4) * gamma).pow(0.5)) / 2).pow(0.5));
-                    res.push_back(-B / (complex(4) * A) +
-                                  ((-alpha - (alpha.pow(2) - complex(4) * gamma).pow(0.5)) / 2).pow(0.5));
-                    res.push_back(-B / (complex(4) * A) -
-                                  ((-alpha + (alpha.pow(2) - complex(4) * gamma).pow(0.5)) / 2).pow(0.5));
-                    res.push_back(-B / (complex(4) * A) -
-                                  ((-alpha - (alpha.pow(2) - complex(4) * gamma).pow(0.5)) / 2).pow(0.5));
+                complex alpha = -B * B * 3 / 8 / A / A + C / A,
+                        beta = B * B * B / 8 / A / A / A - B * C / 2 / A / A + D / A,
+                        gamma =
+                        -B * B * B * B * 3 / 256 / A / A / A / A + B * B * C / 16 / A / A / A - B * D / 4 / A / A +
+                        E / A;
+                if (beta == 0) {
+                    res.push_back(-B / 4 / A + ((-alpha + (alpha * alpha - gamma * 4).pow(0.5)) / 2).pow(0.5));
+                    res.push_back(-B / 4 / A + ((-alpha - (alpha * alpha - gamma * 4).pow(0.5)) / 2).pow(0.5));
+                    res.push_back(-B / 4 / A - ((-alpha + (alpha * alpha - gamma * 4).pow(0.5)) / 2).pow(0.5));
+                    res.push_back(-B / 4 / A - ((-alpha - (alpha * alpha - gamma * 4).pow(0.5)) / 2).pow(0.5));
                 } else {
-                    complex P = -alpha.pow(2) / complex(12) - gamma;
-                    complex Q = -alpha.pow(3) / complex(108) + alpha * gamma / complex(3) - beta.pow(2) / complex(8);
-                    complex R = -Q / 2 + (Q.pow(2) / complex(4) + P.pow(3) / complex(27)).pow(2);
+                    complex P = -alpha * alpha / 12 - gamma;
+                    complex Q = -alpha * alpha * alpha / 108 + alpha * gamma / 3 - beta * beta / 8;
+                    complex R = -Q / 2 + (Q * Q / 4 + P * P * P / 27).pow(0.5);
                     complex U = R.pow(1.0 / 3.0);
-                    complex y{};
-                    if (U == complex(0)) {
-                        y = -complex(5.0 / 6.0) * alpha + U - Q.pow(1.0 / 3.0);
+                    complex y = -alpha * 5 / 6 + U;
+                    if (U == 0) {
+                        y -= Q.pow(1.0 / 3.0);
                     } else {
-                        y = -complex(5.0 / 6.0) * alpha + U - P / (complex(3) * U);
+                        y -= P / 3 / U;
                     }
-                    complex W = (alpha + y * complex(2));
-                    res.push_back(-B / (complex(4) * A) +
-                                  (W + (-(complex(3) * alpha + complex(2) * y + complex(2) * beta / W)).pow(0.5)) /
-                                  complex(2));
-                    res.push_back(-B / (complex(4) * A) +
-                                  (-W + (-(complex(3) * alpha + complex(2) * y - complex(2) * beta / W)).pow(0.5)) /
-                                  complex(2));
-                    res.push_back(-B / (complex(4) * A) +
-                                  (W - (-(complex(3) * alpha + complex(2) * y + complex(2) * beta / W)).pow(0.5)) /
-                                  complex(2));
-                    res.push_back(-B / (complex(4) * A) +
-                                  (-W - (-(complex(3) * alpha + complex(2) * y - complex(2) * beta / W)).pow(0.5)) /
-                                  complex(2));
+                    complex W = (alpha + y * 2).pow(0.5);
+                    res.push_back(-B / 4 / A + (W + (-alpha * 3 - y * 2 - beta * 2 / W).pow(0.5)) / 2);
+                    res.push_back(-B / 4 / A + (-W + (-alpha * 3 - y * 2 + beta * 2 / W).pow(0.5)) / 2);
+                    res.push_back(-B / 4 / A + (W - (-alpha * 3 - y * 2 - beta * 2 / W).pow(0.5)) / 2);
+                    res.push_back(-B / 4 / A + (-W - (-alpha * 3 - y * 2 + beta * 2 / W).pow(0.5)) / 2);
                 }
                 flag = false;
                 break;
