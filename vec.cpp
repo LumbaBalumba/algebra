@@ -41,7 +41,7 @@ void vec::fill(const complex &z) {
 
 vec vec::operator+(const vec &other) {
     if (_size != other._size) {
-        throw std::out_of_range("Incorrect vector size");;
+        throw std::out_of_range("Incorrect vector size\n");;
     }
     vec res(other);
     for (size_t j = 0; j < _size; ++j) {
@@ -52,7 +52,7 @@ vec vec::operator+(const vec &other) {
 
 vec vec::operator-(const vec &other) {
     if (_size != other._size) {
-        throw std::out_of_range("Incorrect vector size");
+        throw std::out_of_range("Incorrect vector size\n");
     }
     vec res(other);
     for (int j = 0; j < _size; ++j) {

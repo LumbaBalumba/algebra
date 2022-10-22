@@ -29,7 +29,7 @@ double complex::abs() const {
 }
 
 double complex::arg() const {
-    if (abs() < eps) { throw std::overflow_error("Zero division error (arg)"); }
+    if (abs() < eps) { throw std::overflow_error("Zero division error (arg)\n"); }
     else if (re > 0 && fabs(im) < eps)
         return 0;
     else if (re > 0 && im > 0)
@@ -46,6 +46,7 @@ double complex::arg() const {
         return pi() * 3.0 / 2.0;
     else if (re > 0 && im < 0)
         return pi() * 2.0 + atan(re / im);
+    return 0;
 }
 
 complex::complex(double x)
@@ -92,7 +93,7 @@ complex complex::operator*(const complex &other) const {
 
 complex complex::operator/(const complex &other) const {
     if (other.abs() < eps) {
-        throw std::overflow_error("Zero division error (/)");
+        throw std::overflow_error("Zero division error (/)\n");
     }
     complex res = (*this) * other.conjugate();
     res.re /= other.abs() * other.abs();

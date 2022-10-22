@@ -54,7 +54,7 @@ bool matrix::real() {
 
 matrix matrix::operator+(const matrix &other) const {
     if (this->rows() != other.rows() || this->cols() != other.cols())
-        throw std::out_of_range("Incorrect matrix size");
+        throw std::out_of_range("Incorrect matrix size\n");
     matrix res(rows(), cols());
     for (size_t j = 0; j < _size; ++j) {
         res[j] = this->arr[j] + other.arr[j];
@@ -64,7 +64,7 @@ matrix matrix::operator+(const matrix &other) const {
 
 matrix matrix::operator-(const matrix &other) const {
     if (this->rows() != other.rows() || this->cols() != other.cols())
-        throw std::out_of_range("Incorrect matrix size");
+        throw std::out_of_range("Incorrect matrix size\n");
     matrix res(rows(), cols());
     for (int j = 0; j < _size; ++j) {
         res[j] = this->arr[j] - other.arr[j];
@@ -100,7 +100,7 @@ matrix matrix::operator/(const complex &z) const {
 
 matrix matrix::operator*(const matrix &other) const {
     if (cols() != other.rows())
-        throw std::out_of_range("Incorrect matrix size");
+        throw std::out_of_range("Incorrect matrix size\n");
     matrix res(rows(), other.cols());
     for (size_t i = 0; i < rows(); ++i) {
         for (size_t j = 0; j < other.cols(); ++j) {
@@ -195,7 +195,7 @@ void matrix::col_mul(size_t dest, const complex &z) {
 
 complex matrix::tr() {
     if (rows() != cols())
-        throw std::out_of_range("Incorrect matrix size");
+        throw std::out_of_range("Incorrect matrix size\n");
     complex res(0);
     for (size_t j = 0; j < rows(); ++j) {
         res += arr[j][j];
@@ -228,15 +228,16 @@ matrix matrix::upper_triangle() {
     for (size_t i = 0; i < rows() - 1; ++i) {
         if (res[i][i] == 0) {
             bool flag = false;
-            for (size_t j = i + 1; j < rows() && !flag; ++j) {
+            for (size_t j = i + 1; j < rows(); ++j) {
                 if (res[j][i] != 0) {
                     res[j] *= complex(-1);
                     res.row_swap(i, j);
                     flag = true;
+                    break;
                 }
             }
             if (!flag)
-                continue;
+                throw std::overflow_error("Zero determinant matrix\n");
         }
         for (size_t j = i + 1; j < rows(); ++j) {
             res.row_add(j, i, -res[j][i] / res[i][i]);

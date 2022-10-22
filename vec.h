@@ -21,7 +21,7 @@ public:
 
     ~vec();
 
-    size_t size() const;
+    [[nodiscard]] size_t size() const;
 
     void resize(size_t size);
 

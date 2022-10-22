@@ -46,9 +46,9 @@ public:
 
     polynomial operator%=(const polynomial &other);
 
-    std::vector<complex> roots() const;
+    [[nodiscard]] std::vector<complex> roots() const;
 
-    polynomial derivative() const;
+    [[nodiscard]] polynomial derivative() const;
 
     friend std::istream &operator>>(std::istream &in, polynomial &p);
 

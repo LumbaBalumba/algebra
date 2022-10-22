@@ -99,9 +99,9 @@ public:
 
     size_t def();
 
-    polynomial char_pol() const;
+    [[nodiscard]] polynomial char_pol() const;
 
-    std::vector<complex> eigenvalues() const;
+    [[nodiscard]] std::vector<complex> eigenvalues() const;
 
     bool nilpotent() const;
 };
