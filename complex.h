@@ -23,15 +23,15 @@ public:
 
     complex(const complex &other);
 
-    bool real() const;
+    [[nodiscard]] bool real() const;
 
-    bool imaginary() const;
+    [[nodiscard]] bool imaginary() const;
 
-    complex conjugate() const;
+    [[nodiscard]] complex conjugate() const;
 
-    double abs() const;
+    [[nodiscard]] double abs() const;
 
-    double arg() const;
+    [[nodiscard]] double arg() const;
 
     complex operator+(const complex &other) const;
 
