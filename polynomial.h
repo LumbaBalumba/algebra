@@ -38,7 +38,7 @@ public:
 
     polynomial operator%(const polynomial &other);
 
-    size_t deg() const;
+    [[nodiscard]] size_t deg() const;
 
     polynomial operator*=(const polynomial &other);
 
