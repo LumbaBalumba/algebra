@@ -103,7 +103,7 @@ public:
 
     [[nodiscard]] std::vector<complex> eigenvalues() const;
 
-    bool nilpotent() const;
+    [[nodiscard]] bool nilpotent() const;
 };
 
 #endif // ALGEBRA_MATRIX_H

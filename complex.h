@@ -67,7 +67,7 @@ public:
 
     friend std::istream &operator>>(std::istream &in, complex &z);
 
-    complex pow(double x) const;
+    [[nodiscard]] complex pow(double x) const;
 };
 
 
