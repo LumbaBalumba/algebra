@@ -392,7 +392,7 @@ size_t matrix::rank()
 
 size_t matrix::def()
 {
-    return std::min(rows(), cols()) - rank();
+    return cols() - rank();
 }
 
 polynomial matrix::char_pol() const
