@@ -5,10 +5,8 @@
 #ifndef ALGEBRA_COMPLEX_H
 #define ALGEBRA_COMPLEX_H
 
-#include <iostream>
 #include <cmath>
-
-
+#include <iostream>
 
 class complex
 {
@@ -70,7 +68,6 @@ public:
     [[nodiscard]] complex pow(double x) const;
 };
 
-
 complex i();
 
 double pi();
@@ -81,5 +78,4 @@ complex cos(const complex &z);
 
 complex exp(const complex &z);
 
-
-#endif //ALGEBRA_COMPLEX_H
+#endif // ALGEBRA_COMPLEX_H

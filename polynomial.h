@@ -6,8 +6,8 @@
 #define ALGEBRA_POLYNOMIAL_H
 
 #include "vec.h"
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 class polynomial : public vec
 {
@@ -59,4 +59,4 @@ public:
 
 polynomial Lagrange(const std::vector<std::pair<complex, complex>> &v);
 
-#endif //ALGEBRA_POLYNOMIAL_H
+#endif // ALGEBRA_POLYNOMIAL_H

@@ -5,8 +5,8 @@
 #ifndef ALGEBRA_MATRIX_H
 #define ALGEBRA_MATRIX_H
 
-#include "vec.h"
 #include "polynomial.h"
+#include "vec.h"
 
 class matrix
 {

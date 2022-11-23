@@ -5,7 +5,8 @@
 #include "matrix.h"
 
 matrix::matrix(size_t rows, size_t cols)
-        : _size(rows), arr(new vec[rows]) {
+    : _size(rows), arr(new vec[rows])
+{
     for (size_t i = 0; i < rows; ++i) {
         arr[i] = vec(cols);
         arr[i].fill(0);
@@ -13,14 +14,16 @@ matrix::matrix(size_t rows, size_t cols)
 }
 
 matrix::matrix(const matrix &other)
-        : _size(other.rows()), arr(new vec[other.cols()]) {
+    : _size(other.rows()), arr(new vec[other.cols()])
+{
     for (int i = 0; i < _size; ++i) {
         arr[i] = other.arr[i];
     }
 }
 
 matrix::matrix(const complex &lambda, size_t rows, size_t cols)
-        : _size(rows), arr(new vec[rows]) {
+    : _size(rows), arr(new vec[rows])
+{
     for (size_t j = 0; j < rows; ++j) {
         arr[j] = vec(cols);
         arr[j].fill(complex(0));
@@ -29,22 +32,26 @@ matrix::matrix(const complex &lambda, size_t rows, size_t cols)
     }
 }
 
-size_t matrix::rows() const {
+size_t matrix::rows() const
+{
     return _size;
 }
 
-size_t matrix::cols() const {
+size_t matrix::cols() const
+{
     return arr[0].size();
 }
 
-void matrix::resize(size_t rows, size_t cols) {
+void matrix::resize(size_t rows, size_t cols)
+{
     arr = (vec *) realloc(arr, sizeof(vec) * rows);
     for (size_t i = 0; i < _size; ++i) {
         arr[i].resize(cols);
     }
 }
 
-bool matrix::real() {
+bool matrix::real()
+{
     for (size_t i = 0; i < _size; ++i) {
         if (!arr[i].real())
             return false;
@@ -52,7 +59,8 @@ bool matrix::real() {
     return true;
 }
 
-matrix matrix::operator+(const matrix &other) const {
+matrix matrix::operator+(const matrix &other) const
+{
     if (this->rows() != other.rows() || this->cols() != other.cols())
         throw std::out_of_range("Incorrect matrix size\n");
     matrix res(rows(), cols());
@@ -62,7 +70,8 @@ matrix matrix::operator+(const matrix &other) const {
     return res;
 }
 
-matrix matrix::operator-(const matrix &other) const {
+matrix matrix::operator-(const matrix &other) const
+{
     if (this->rows() != other.rows() || this->cols() != other.cols())
         throw std::out_of_range("Incorrect matrix size\n");
     matrix res(rows(), cols());
@@ -72,7 +81,8 @@ matrix matrix::operator-(const matrix &other) const {
     return res;
 }
 
-matrix matrix::operator-() const {
+matrix matrix::operator-() const
+{
     matrix res(*this);
     for (size_t i = 0; i < rows(); ++i) {
         for (size_t j = 0; j < cols(); ++j) {
@@ -82,7 +92,8 @@ matrix matrix::operator-() const {
     return res;
 }
 
-matrix matrix::operator*(const complex &z) const {
+matrix matrix::operator*(const complex &z) const
+{
     matrix res(rows(), cols());
     for (size_t j = 0; j < _size; ++j) {
         res[j] = this->arr[j] * z;
@@ -90,7 +101,8 @@ matrix matrix::operator*(const complex &z) const {
     return res;
 }
 
-matrix matrix::operator/(const complex &z) const {
+matrix matrix::operator/(const complex &z) const
+{
     matrix res(rows(), cols());
     for (size_t j = 0; j < _size; ++j) {
         res[j] = this->arr[j] / z;
@@ -98,7 +110,8 @@ matrix matrix::operator/(const complex &z) const {
     return res;
 }
 
-matrix matrix::operator*(const matrix &other) const {
+matrix matrix::operator*(const matrix &other) const
+{
     if (cols() != other.rows())
         throw std::out_of_range("Incorrect matrix size\n");
     matrix res(rows(), other.cols());
@@ -114,7 +127,8 @@ matrix matrix::operator*(const matrix &other) const {
     return res;
 }
 
-matrix &matrix::operator=(const matrix &other) {
+matrix &matrix::operator=(const matrix &other)
+{
     if (this == &other)
         return *this;
     _size = other._size;
@@ -125,49 +139,60 @@ matrix &matrix::operator=(const matrix &other) {
     return *this;
 }
 
-matrix &matrix::operator+=(const matrix &other) {
+matrix &matrix::operator+=(const matrix &other)
+{
     return *this = *this + other;
 }
 
-matrix &matrix::operator-=(const matrix &other) {
+matrix &matrix::operator-=(const matrix &other)
+{
     return *this = *this - other;
 }
 
-matrix &matrix::operator*=(const matrix &other) {
+matrix &matrix::operator*=(const matrix &other)
+{
     return *this = *this * other;
 }
 
-matrix &matrix::operator*=(const complex &z) {
+matrix &matrix::operator*=(const complex &z)
+{
     return *this = *this * z;
 }
 
-matrix &matrix::operator/=(const complex &z) {
+matrix &matrix::operator/=(const complex &z)
+{
     return *this = *this / z;
 }
 
-vec &matrix::operator[](size_t index) const {
+vec &matrix::operator[](size_t index) const
+{
     return arr[index];
 }
 
-void matrix::row_swap(size_t dest, size_t src) {
+void matrix::row_swap(size_t dest, size_t src)
+{
     vec tmp(arr[dest]);
     arr[dest] = arr[src];
     arr[src] = tmp;
 }
 
-void matrix::row_add(size_t dest, size_t src, const complex &k) {
+void matrix::row_add(size_t dest, size_t src, const complex &k)
+{
     arr[dest] += arr[src] * k;
 }
 
-void matrix::row_add(size_t dest, size_t src) {
+void matrix::row_add(size_t dest, size_t src)
+{
     arr[dest] += arr[src];
 }
 
-void matrix::row_mul(size_t dest, const complex &z) {
+void matrix::row_mul(size_t dest, const complex &z)
+{
     arr[dest] *= z;
 }
 
-void matrix::col_swap(size_t dest, size_t src) {
+void matrix::col_swap(size_t dest, size_t src)
+{
     for (size_t j = 0; j < rows(); ++j) {
         complex z = arr[j][dest];
         arr[j][dest] = arr[j][src];
@@ -175,25 +200,29 @@ void matrix::col_swap(size_t dest, size_t src) {
     }
 }
 
-void matrix::col_add(size_t dest, size_t src, const complex &z) {
+void matrix::col_add(size_t dest, size_t src, const complex &z)
+{
     for (size_t j = 0; j < rows(); ++j) {
         arr[j][dest] += arr[j][src] * z;
     }
 }
 
-void matrix::col_add(size_t dest, size_t src) {
+void matrix::col_add(size_t dest, size_t src)
+{
     for (size_t j = 0; j < rows(); ++j) {
         arr[j][dest] += arr[j][src];
     }
 }
 
-void matrix::col_mul(size_t dest, const complex &z) {
+void matrix::col_mul(size_t dest, const complex &z)
+{
     for (size_t j = 0; j < rows(); ++j) {
         arr[j][dest] *= z;
     }
 }
 
-complex matrix::tr() {
+complex matrix::tr()
+{
     if (rows() != cols())
         throw std::out_of_range("Incorrect matrix size\n");
     complex res(0);
@@ -203,7 +232,8 @@ complex matrix::tr() {
     return res;
 }
 
-matrix matrix::transposed() {
+matrix matrix::transposed()
+{
     matrix res(cols(), rows());
     for (size_t i = 0; i < rows(); ++i) {
         for (size_t j = 0; j < cols(); ++j) {
@@ -213,7 +243,8 @@ matrix matrix::transposed() {
     return res;
 }
 
-matrix matrix::conjugate() {
+matrix matrix::conjugate()
+{
     matrix res(cols(), rows());
     for (size_t i = 0; i < rows(); ++i) {
         for (size_t j = 0; j < cols(); ++j) {
@@ -223,7 +254,8 @@ matrix matrix::conjugate() {
     return res;
 }
 
-matrix matrix::upper_triangle() {
+matrix matrix::upper_triangle()
+{
     matrix res(*this);
     for (size_t i = 0; i < rows() - 1; ++i) {
         if (res[i][i] == 0) {
@@ -246,7 +278,8 @@ matrix matrix::upper_triangle() {
     return res;
 }
 
-complex matrix::det() {
+complex matrix::det()
+{
     if (rows() != cols())
         throw std::out_of_range("Incorrect matrix size");
     complex res(1);
@@ -257,7 +290,8 @@ complex matrix::det() {
     return res;
 }
 
-complex matrix::alg_complement(size_t row, size_t col) {
+complex matrix::alg_complement(size_t row, size_t col)
+{
     if (rows() != cols())
         throw std::out_of_range("Incorrect matrix size");
     if (rows() == 1)
@@ -278,7 +312,8 @@ complex matrix::alg_complement(size_t row, size_t col) {
     return ((row + col) % 2 == 0) ? res.det() : -res.det();
 }
 
-matrix matrix::adjusted() {
+matrix matrix::adjusted()
+{
     if (rows() != cols())
         throw std::out_of_range("Incorrect matrix size");
     matrix res(cols(), rows());
@@ -290,28 +325,33 @@ matrix matrix::adjusted() {
     return res;
 }
 
-matrix matrix::inverted() {
+matrix matrix::inverted()
+{
     if (rows() != cols())
         throw std::out_of_range("Incorrect matrix size");
     return adjusted() / det();
 }
 
-std::ostream &operator<<(std::ostream &out, const matrix &m) {
+std::ostream &operator<<(std::ostream &out, const matrix &m)
+{
     for (size_t i = 0; i < m.rows(); ++i) {
         out << m.arr[i];
-        if (i != m.rows() - 1) out << std::endl;
+        if (i != m.rows() - 1)
+            out << std::endl;
     }
     return out;
 }
 
-std::istream &operator>>(std::istream &in, matrix &m) {
+std::istream &operator>>(std::istream &in, matrix &m)
+{
     for (size_t i = 0; i < m.rows(); ++i) {
         in >> m.arr[i];
     }
     return in;
 }
 
-vec matrix::operator()(vec &v) const {
+vec matrix::operator()(vec &v) const
+{
     if (v.size() != cols())
         throw std::out_of_range("Incorrect matrix and vector size");
     vec res(rows());
@@ -324,7 +364,8 @@ vec matrix::operator()(vec &v) const {
     return res;
 }
 
-size_t matrix::rank() {
+size_t matrix::rank()
+{
     size_t res = 0;
     matrix tmp = upper_triangle();
     if (rows() < cols()) {
@@ -349,11 +390,13 @@ size_t matrix::rank() {
     return res;
 }
 
-size_t matrix::def() {
+size_t matrix::def()
+{
     return std::min(rows(), cols()) - rank();
 }
 
-polynomial matrix::char_pol() const {
+polynomial matrix::char_pol() const
+{
     if (rows() != cols()) {
         throw std::out_of_range("Incorrect matrix sizes");
     }
@@ -365,7 +408,8 @@ polynomial matrix::char_pol() const {
     return Lagrange(v);
 }
 
-std::vector<complex> matrix::eigenvalues() const {
+std::vector<complex> matrix::eigenvalues() const
+{
     std::vector<complex> v = char_pol().roots();
     std::sort(v.begin(), v.end(), [](const complex &a, const complex &b) {
         if (a.abs() != b.abs()) {
@@ -381,7 +425,8 @@ std::vector<complex> matrix::eigenvalues() const {
     return v;
 }
 
-bool matrix::nilpotent() const {
+bool matrix::nilpotent() const
+{
     polynomial p = char_pol();
     for (size_t i = 0; i < p.deg(); ++i) {
         if (p[i] != 0) {

@@ -12,6 +12,7 @@ class vec
 private:
     size_t _size;
     complex *arr;
+
 public:
     vec() = default;
 
@@ -62,5 +63,4 @@ public:
     double length();
 };
 
-
-#endif //ALGEBRA_VEC_H
+#endif // ALGEBRA_VEC_H
