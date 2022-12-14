@@ -2,7 +2,7 @@
 // Created by admin on 04.09.22.
 //
 
-#include "matrix.h"
+#include "matrix.hpp"
 
 matrix::matrix(size_t rows, size_t cols)
     : _size(rows), arr(new vec[rows])

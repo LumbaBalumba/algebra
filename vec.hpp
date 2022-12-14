@@ -2,10 +2,10 @@
 // Created by admin on 04.09.22.
 //
 
-#ifndef ALGEBRA_VEC_H
-#define ALGEBRA_VEC_H
+#ifndef ALGEBRA_VEC_HPP
+#define ALGEBRA_VEC_HPP
 
-#include "complex.h"
+#include "complex.hpp"
 
 class vec
 {
@@ -63,4 +63,4 @@ public:
     double length();
 };
 
-#endif // ALGEBRA_VEC_H
+#endif // ALGEBRA_VEC_HPP

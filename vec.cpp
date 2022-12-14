@@ -2,7 +2,7 @@
 // Created by admin on 04.09.22.
 //
 
-#include "vec.h"
+#include "vec.hpp"
 
 vec::vec(size_t _size) : _size(_size), arr(new complex[_size]) {}
 

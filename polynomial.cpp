@@ -2,7 +2,7 @@
 // Created by admin on 04.09.22.
 //
 
-#include "polynomial.h"
+#include "polynomial.hpp"
 
 polynomial::polynomial(size_t size) : vec(size + 1)
 {

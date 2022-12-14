@@ -2,10 +2,10 @@
 // Created by admin on 04.09.22.
 //
 
-#ifndef ALGEBRA_POLYNOMIAL_H
-#define ALGEBRA_POLYNOMIAL_H
+#ifndef ALGEBRA_POLYNOMIAL_HPP
+#define ALGEBRA_POLYNOMIAL_HPP
 
-#include "vec.h"
+#include "vec.hpp"
 #include <algorithm>
 #include <vector>
 
@@ -59,4 +59,4 @@ public:
 
 polynomial Lagrange(const std::vector<std::pair<complex, complex>> &v);
 
-#endif // ALGEBRA_POLYNOMIAL_H
+#endif // ALGEBRA_POLYNOMIAL_HPP

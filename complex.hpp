@@ -2,8 +2,8 @@
 // Created by admin on 04.09.22.
 //
 
-#ifndef ALGEBRA_COMPLEX_H
-#define ALGEBRA_COMPLEX_H
+#ifndef ALGEBRA_COMPLEX_HPP
+#define ALGEBRA_COMPLEX_HPP
 
 #include <cmath>
 #include <iostream>
@@ -78,4 +78,4 @@ complex cos(const complex &z);
 
 complex exp(const complex &z);
 
-#endif // ALGEBRA_COMPLEX_H
+#endif // ALGEBRA_COMPLEX_HPP

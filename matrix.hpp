@@ -2,11 +2,11 @@
 // Created by admin on 04.09.22.
 //
 
-#ifndef ALGEBRA_MATRIX_H
-#define ALGEBRA_MATRIX_H
+#ifndef ALGEBRA_MATRIX_HPP
+#define ALGEBRA_MATRIX_HPP
 
-#include "polynomial.h"
-#include "vec.h"
+#include "polynomial.hpp"
+#include "vec.hpp"
 
 class matrix
 {
@@ -106,4 +106,4 @@ public:
     [[nodiscard]] bool nilpotent() const;
 };
 
-#endif // ALGEBRA_MATRIX_H
+#endif // ALGEBRA_MATRIX_HPP

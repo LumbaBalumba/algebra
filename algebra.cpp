@@ -1,4 +1,4 @@
-#include "algebra.h"
+#include "algebra.hpp"
 
 void alg_guide()
 {
