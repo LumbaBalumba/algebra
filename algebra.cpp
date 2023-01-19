@@ -1,7 +1,6 @@
 #include "algebra.hpp"
 
-void alg_guide()
-{
+void alg_guide() {
     std::cout << "algebra\n"
                  "A C++ library that includes complex numbers, vectors and matrices\n"
                  "\n"

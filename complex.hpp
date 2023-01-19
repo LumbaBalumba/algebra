@@ -8,8 +8,7 @@
 #include <cmath>
 #include <iostream>
 
-class complex
-{
+class complex {
 public:
     double re, im;
 

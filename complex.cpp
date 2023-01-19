@@ -6,8 +6,7 @@
 
 static const double eps = 0.0000001;
 
-double pi()
-{
+double pi() {
     double res = 1;
     double tmp = sqrt(2);
     for (int i = 0; i < 50; ++i) {
@@ -17,23 +16,19 @@ double pi()
     return 2 / res;
 }
 
-complex i()
-{
+complex i() {
     return {0, 1};
 }
 
-complex complex::conjugate() const
-{
+complex complex::conjugate() const {
     return {re, -im};
 }
 
-double complex::abs() const
-{
+double complex::abs() const {
     return sqrt(re * re + im * im);
 }
 
-double complex::arg() const
-{
+double complex::arg() const {
     if (abs() < eps) {
         throw std::overflow_error("Zero division error (arg)\n");
     } else if (re > 0 && fabs(im) < eps)
@@ -56,59 +51,48 @@ double complex::arg() const
 }
 
 complex::complex(double x)
-    : re(x), im(0)
-{
+        : re(x), im(0) {
 }
 
 complex::complex(double re, double im)
-    : re(re), im(im)
-{
+        : re(re), im(im) {
 }
 
 complex::complex(const complex &other) = default;
 
-bool complex::real() const
-{
+bool complex::real() const {
     return fabs(im) < eps;
 }
 
-bool complex::imaginary() const
-{
+bool complex::imaginary() const {
     return fabs(re) < eps;
 }
 
-complex complex::operator+(const complex &other) const
-{
+complex complex::operator+(const complex &other) const {
     return {re + other.re, im + other.im};
 }
 
-complex complex::operator-(const complex &other) const
-{
+complex complex::operator-(const complex &other) const {
     return {re - other.re, im - other.im};
 }
 
-complex complex::operator-() const
-{
+complex complex::operator-() const {
     return {-re, -im};
 }
 
-complex complex::operator*(double x) const
-{
+complex complex::operator*(double x) const {
     return {re * x, im * x};
 }
 
-complex complex::operator/(double x) const
-{
+complex complex::operator/(double x) const {
     return {re / x, im / x};
 }
 
-complex complex::operator*(const complex &other) const
-{
+complex complex::operator*(const complex &other) const {
     return {re * other.re - im * other.im, im * other.re + re * other.im};
 }
 
-complex complex::operator/(const complex &other) const
-{
+complex complex::operator/(const complex &other) const {
     if (other.abs() < eps) {
         throw std::overflow_error("Zero division error (/)\n");
     }
@@ -118,28 +102,23 @@ complex complex::operator/(const complex &other) const
     return res;
 }
 
-complex &complex::operator+=(const complex &other)
-{
+complex &complex::operator+=(const complex &other) {
     return *this = *this + other;
 }
 
-complex &complex::operator-=(const complex &other)
-{
+complex &complex::operator-=(const complex &other) {
     return *this = *this - other;
 }
 
-complex &complex::operator*=(const complex &other)
-{
+complex &complex::operator*=(const complex &other) {
     return *this = *this * other;
 }
 
-complex &complex::operator/=(const complex &other)
-{
+complex &complex::operator/=(const complex &other) {
     return *this = *this / other;
 }
 
-complex &complex::operator=(complex other)
-{
+complex &complex::operator=(complex other) {
     if (this == &other)
         return *this;
     re = other.re;
@@ -147,23 +126,19 @@ complex &complex::operator=(complex other)
     return *this;
 }
 
-complex &complex::operator=(double other)
-{
+complex &complex::operator=(double other) {
     return *this = complex(other);
 }
 
-bool complex::operator==(const complex &other) const
-{
+bool complex::operator==(const complex &other) const {
     return (fabs(re - other.re) < eps) && (fabs(im - other.im) < eps);
 }
 
-bool complex::operator!=(const complex &other) const
-{
+bool complex::operator!=(const complex &other) const {
     return (fabs(re - other.re) >= eps) || (fabs(im - other.im) >= eps);
 }
 
-std::ostream &operator<<(std::ostream &out, const complex &z)
-{
+std::ostream &operator<<(std::ostream &out, const complex &z) {
     if (fabs(z.im) < eps) {
         out << z.re;
     } else if (fabs(z.re) < eps) {
@@ -181,15 +156,13 @@ std::ostream &operator<<(std::ostream &out, const complex &z)
     return out;
 }
 
-std::istream &operator>>(std::istream &in, complex &z)
-{
+std::istream &operator>>(std::istream &in, complex &z) {
     in >> z.re;
     in >> z.im;
     return in;
 }
 
-complex complex::pow(double x) const
-{
+complex complex::pow(double x) const {
     if (*this == 0) {
         return 0;
     } else {
@@ -198,8 +171,7 @@ complex complex::pow(double x) const
     }
 }
 
-complex sin(const complex &z)
-{
+complex sin(const complex &z) {
     complex res(0);
     int sgn = -1;
     complex tmp = z;
@@ -215,8 +187,7 @@ complex sin(const complex &z)
     return res;
 }
 
-complex cos(const complex &z)
-{
+complex cos(const complex &z) {
     complex res(1);
     int sgn = 1;
     complex tmp = z;
@@ -232,7 +203,6 @@ complex cos(const complex &z)
     return res;
 }
 
-complex exp(const complex &z)
-{
+complex exp(const complex &z) {
     return complex(std::exp(z.re)) * (complex(cos(z.im)) + i() * sin(z.im));
 }

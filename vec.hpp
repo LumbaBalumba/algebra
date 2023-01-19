@@ -7,8 +7,7 @@
 
 #include "complex.hpp"
 
-class vec
-{
+class vec {
 private:
     size_t _size;
     complex *arr;

@@ -8,8 +8,7 @@
 #include "polynomial.hpp"
 #include "vec.hpp"
 
-class matrix
-{
+class matrix {
 private:
     size_t _size;
     vec *arr;
@@ -104,6 +103,8 @@ public:
     [[nodiscard]] std::vector<complex> eigenvalues() const;
 
     [[nodiscard]] bool nilpotent() const;
+
+    [[nodiscard]] matrix jordan_form() const;
 };
 
 #endif // ALGEBRA_MATRIX_HPP

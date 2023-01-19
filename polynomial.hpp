@@ -9,8 +9,7 @@
 #include <algorithm>
 #include <vector>
 
-class polynomial : public vec
-{
+class polynomial : public vec {
 public:
     using vec::operator/;
     using vec::operator*;

@@ -6,31 +6,26 @@
 
 vec::vec(size_t _size) : _size(_size), arr(new complex[_size]) {}
 
-vec::vec(const vec &other) : _size(other._size), arr(new complex[_size])
-{
+vec::vec(const vec &other) : _size(other._size), arr(new complex[_size]) {
     for (size_t j = 0; j < _size; ++j) {
         arr[j] = other.arr[j];
     }
 }
 
-vec::~vec()
-{
+vec::~vec() {
     delete[] arr;
 }
 
-size_t vec::size() const
-{
+size_t vec::size() const {
     return _size;
 }
 
-void vec::resize(size_t size)
-{
+void vec::resize(size_t size) {
     arr = (complex *) realloc(arr, sizeof(complex) * size);
     _size = size;
 }
 
-bool vec::real()
-{
+bool vec::real() {
     for (size_t i = 0; i < _size; ++i) {
         if (!arr[i].real())
             return false;
@@ -38,18 +33,15 @@ bool vec::real()
     return true;
 };
 
-void vec::fill(const complex &z)
-{
+void vec::fill(const complex &z) {
     for (size_t j = 0; j < _size; ++j) {
         arr[j] = z;
     }
 }
 
-vec vec::operator+(const vec &other)
-{
+vec vec::operator+(const vec &other) {
     if (_size != other._size) {
-        throw std::out_of_range("Incorrect vector size\n");
-        ;
+        throw std::out_of_range("Incorrect vector size\n");;
     }
     vec res(other);
     for (size_t j = 0; j < _size; ++j) {
@@ -58,8 +50,7 @@ vec vec::operator+(const vec &other)
     return res;
 }
 
-vec vec::operator-(const vec &other)
-{
+vec vec::operator-(const vec &other) {
     if (_size != other._size) {
         throw std::out_of_range("Incorrect vector size\n");
     }
@@ -70,8 +61,7 @@ vec vec::operator-(const vec &other)
     return res;
 }
 
-vec vec::operator-()
-{
+vec vec::operator-() {
     vec res(_size);
     for (size_t i = 0; i < _size; ++i) {
         res.arr[i] = -arr[i];
@@ -79,8 +69,7 @@ vec vec::operator-()
     return res;
 }
 
-vec vec::operator*(const complex &z)
-{
+vec vec::operator*(const complex &z) {
     vec res(*this);
     for (size_t j = 0; j < _size; ++j) {
         res.arr[j] = arr[j] * z;
@@ -88,8 +77,7 @@ vec vec::operator*(const complex &z)
     return res;
 }
 
-vec vec::operator/(const complex &z)
-{
+vec vec::operator/(const complex &z) {
     vec res(*this);
     for (size_t j = 0; j < _size; ++j) {
         res.arr[j] = arr[j] / z;
@@ -97,8 +85,7 @@ vec vec::operator/(const complex &z)
     return res;
 }
 
-vec &vec::operator=(const vec &other)
-{
+vec &vec::operator=(const vec &other) {
     if (this == &other)
         return *this;
     _size = other._size;
@@ -109,28 +96,23 @@ vec &vec::operator=(const vec &other)
     return *this;
 }
 
-vec &vec::operator+=(const vec &other)
-{
+vec &vec::operator+=(const vec &other) {
     return *this = *this + other;
 }
 
-vec &vec::operator-=(const vec &other)
-{
+vec &vec::operator-=(const vec &other) {
     return *this = *this - other;
 }
 
-vec &vec::operator*=(const complex &other)
-{
+vec &vec::operator*=(const complex &other) {
     return *this = *this * other;
 }
 
-vec &vec::operator/=(const complex &other)
-{
+vec &vec::operator/=(const complex &other) {
     return *this = *this / other;
 }
 
-bool vec::operator==(const vec &other)
-{
+bool vec::operator==(const vec &other) {
     for (size_t j = 0; j < _size; ++j) {
         if (arr[j] != other.arr[j])
             return false;
@@ -138,8 +120,7 @@ bool vec::operator==(const vec &other)
     return true;
 }
 
-bool vec::operator!=(const vec &other)
-{
+bool vec::operator!=(const vec &other) {
     for (int j = 0; j < _size; ++j) {
         if (arr[j] == other.arr[j])
             return false;
@@ -147,29 +128,25 @@ bool vec::operator!=(const vec &other)
     return true;
 }
 
-complex &vec::operator[](size_t index) const
-{
+complex &vec::operator[](size_t index) const {
     return arr[index];
 }
 
-std::ostream &operator<<(std::ostream &out, const vec &v)
-{
+std::ostream &operator<<(std::ostream &out, const vec &v) {
     for (size_t i = 0; i < v.size(); ++i) {
         out << v[i] << " ";
     }
     return out;
 }
 
-std::istream &operator>>(std::istream &in, vec &v)
-{
+std::istream &operator>>(std::istream &in, vec &v) {
     for (size_t i = 0; i < v.size(); ++i) {
         in >> v.arr[i];
     }
     return in;
 }
 
-double vec::length()
-{
+double vec::length() {
     if (!real())
         return 0;
     double res = 0;
