@@ -398,8 +398,17 @@ matrix matrix::jordan_form() const {
     auto eigenvalues = this->eigenvalues();
     auto last = std::unique(eigenvalues.begin(), eigenvalues.end());
     eigenvalues.erase(last, eigenvalues.end());
-    for (size_t i = 0; i < this->rows(); ) {
-
+    for (size_t eigen_index = 0, matrix_index = 0; eigen_index < eigenvalues.size(); ++eigen_index) {
+        size_t block_size;
+        while ((block_size = ((*this - matrix(0, this->rows(), this->cols()) * eigenvalues[eigen_index])).def()) != 0) {
+            for (size_t j = 0; j < block_size; ++j) {
+                res[matrix_index + j][matrix_index + j] = eigenvalues[eigen_index];
+                if (j != 0) {
+                    res[matrix_index + j][matrix_index + j - 1] = 1;
+                }
+            }
+            matrix_index += block_size;
+        }
     }
     return res;
 }
