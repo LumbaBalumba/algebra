@@ -400,7 +400,10 @@ matrix matrix::jordan_form() const {
     eigenvalues.erase(last, eigenvalues.end());
     for (size_t eigen_index = 0, matrix_index = 0; eigen_index < eigenvalues.size(); ++eigen_index) {
         size_t block_size;
-        while ((block_size = ((*this - matrix(0, this->rows(), this->cols()) * eigenvalues[eigen_index])).def()) != 0) {
+        for (size_t i = 1;
+             (block_size = ((*this -
+                             matrix(1, this->rows(), this->cols()) *
+                             eigenvalues[eigen_index])).pow(i).def()) != 0; ++i) {
             for (size_t j = 0; j < block_size; ++j) {
                 res[matrix_index + j][matrix_index + j] = eigenvalues[eigen_index];
                 if (j != 0) {
@@ -411,4 +414,17 @@ matrix matrix::jordan_form() const {
         }
     }
     return res;
+}
+
+matrix matrix::pow(size_t power) const {
+    if (this->rows() != this->cols()) {
+        throw std::out_of_range("Incorrect matrix sizes");
+    }
+    if (power == 0) {
+        return {1, this->rows(), this->cols()};
+    } else if (power % 2 != 0) {
+        return *this * this->pow(power - 1);
+    } else {
+        return this->pow(power / 2) * this->pow(power / 2);
+    }
 }

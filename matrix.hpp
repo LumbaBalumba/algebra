@@ -105,6 +105,8 @@ public:
     [[nodiscard]] bool nilpotent() const;
 
     [[nodiscard]] matrix jordan_form() const;
+
+    [[nodiscard]] matrix pow(size_t power) const;
 };
 
 #endif // ALGEBRA_MATRIX_HPP
