@@ -22,9 +22,9 @@ public:
 
     matrix(const complex &lambda, size_t rows, size_t cols);
 
-    size_t rows() const;
+    [[nodiscard]] size_t rows() const;
 
-    size_t cols() const;
+    [[nodiscard]] size_t cols() const;
 
     void resize(size_t rows, size_t cols);
 

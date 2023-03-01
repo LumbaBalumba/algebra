@@ -32,13 +32,21 @@ public:
 
     complex operator+(const complex &other) const;
 
+    friend complex operator+(double, const complex &right);
+
     complex operator-(const complex &other) const;
+
+    friend complex operator-(double left, const complex &right);
 
     complex operator-() const;
 
     complex operator*(double x) const;
 
+    friend complex operator*(double left, const complex &right);
+
     complex operator/(double x) const;
+
+    friend complex operator/(double left, const complex &right);
 
     complex operator*(const complex &other) const;
 

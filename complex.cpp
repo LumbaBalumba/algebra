@@ -171,6 +171,22 @@ complex complex::pow(double x) const {
     }
 }
 
+complex operator+(const double left, const complex &right) {
+    return {left + right.re, right.im};
+}
+
+complex operator-(double left, const complex &right) {
+    return {left - right.re, -right.im};
+}
+
+complex operator*(double left, const complex &right) {
+    return {left * right.re, left * right.im};
+}
+
+complex operator/(double left, const complex &right) {
+    return left * right.conjugate() / (right.re * right.re + right.im * right.im);
+}
+
 complex sin(const complex &z) {
     complex res(0);
     int sgn = -1;
