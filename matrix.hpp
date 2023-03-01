@@ -56,6 +56,8 @@ public:
 
     vec &operator[](size_t index) const;
 
+    complex &operator[](size_t i, size_t j) const;
+
     void row_swap(size_t dest, size_t src);
 
     void row_add(size_t dest, size_t src, const complex &k);

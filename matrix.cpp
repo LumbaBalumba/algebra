@@ -428,3 +428,9 @@ matrix matrix::pow(size_t power) const {
         return this->pow(power / 2) * this->pow(power / 2);
     }
 }
+
+complex &
+matrix::operator[](size_t i, size_t j) const
+{
+    return arr[i][j];
+}
